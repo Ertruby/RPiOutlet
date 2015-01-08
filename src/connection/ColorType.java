@@ -1,4 +1,4 @@
-package nl.utwente.wsc.com.raspi;
+package connection;
 
 /**
  * The type of packet.

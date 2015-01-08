@@ -1,19 +1,19 @@
-package nl.utwente.wsc.com.raspi;
+package connection;
 
-import java.io.File;
+//import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+//import java.util.Set;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
-import android.util.Log;
+//import android.util.Log;
 
 public class WallSocketServer extends Thread {
 	
@@ -29,21 +29,21 @@ public class WallSocketServer extends Thread {
 		setName("PiServer");
 		System.setProperty("javax.net.ssl.keyStore", "keystore");
 		System.setProperty("javax.net.ssl.keyStorePassword", "picloudkeypass");
-		Log.d(this.toString(), "Starting server on port 20022");
+//		Log.d(this.toString(), "Starting server on port 20022");
 		try {
-			SSLServerSocketFactory sslf = (SSLServerSocketFactory) SSLServerSocketFactory
-					.getDefault();
+			SSLServerSocketFactory sslf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 			socket = (SSLServerSocket) sslf.createServerSocket(portNr);
 		} catch (IOException e) {
-			Log.e(this.toString(), "Could not create server socket: " + e);
+//			Log.e(this.toString(), "Could not create server socket: " + e);
+			System.out.println("Could not create server socket: " + e);
 			System.exit(1);
 		}
 		try {
 			socket.setSoTimeout(1000);
 		} catch (SocketException e) {
-			Log.e(this.toString(), "Could not set socket timeout: " + e);
+//			Log.e(this.toString(), "Could not set socket timeout: " + e);
 		}
-		Log.d(this.toString(), "Socket created");
+//		Log.d(this.toString(), "Socket created");
 	}
 
 	@Override

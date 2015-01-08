@@ -1,4 +1,4 @@
-package nl.utwente.wsc.com.model.exception;
+package connection.exception;
 
 /**
  * Used to signal a packets' contents are malformed or 

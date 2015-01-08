@@ -30,7 +30,7 @@ package main;
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.GpioUtil;
 
-public class WiringPiGpioExample {
+public class WiringPiGPIOExample {
     
     // Simple sequencer data
     // Triplets of LED, On/Off and delay

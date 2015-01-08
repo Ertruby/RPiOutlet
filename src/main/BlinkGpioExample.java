@@ -29,7 +29,6 @@ package main;
  * #L%
  */
 
-
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -42,7 +41,7 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 /**
  * This example code demonstrates how to perform simple 
  * blinking LED logic of a GPIO pin on the Raspberry Pi
- * using the Pi4J library.  
+ * using the Pi4J library.
  * 
  * @author Robert Savage
  */

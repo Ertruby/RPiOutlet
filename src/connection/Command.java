@@ -1,4 +1,4 @@
-package nl.utwente.wsc.com.raspi;
+package connection;
 
 import nl.utwente.wsc.com.model.exception.InvalidPacketException;
 
