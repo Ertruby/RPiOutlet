@@ -1,4 +1,4 @@
-package main;
+package gpio;
 // START SNIPPET: blink-gpio-snippet
 
 

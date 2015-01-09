@@ -1,4 +1,4 @@
-package connection;
+package gpio;
 
 /**
  * The type of packet.

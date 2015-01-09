@@ -2,7 +2,7 @@ package connection;
 
 import java.util.Arrays;
 
-import nl.utwente.wsc.com.model.exception.InvalidPacketException;
+import connection.exception.InvalidPacketException;
 
 /**
  * PacketHeader implementation for communication with Pi.<br>

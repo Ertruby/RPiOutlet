@@ -1,4 +1,4 @@
-package connection;
+package gpio;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;

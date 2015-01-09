@@ -1,6 +1,7 @@
 package connection;
 
-import nl.utwente.wsc.com.model.exception.InvalidPacketException;
+import connection.exception.InvalidPacketException;
+
 
 /**
  * A command with possible arguments

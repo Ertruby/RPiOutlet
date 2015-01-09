@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import nl.utwente.wsc.com.model.exception.InvalidPacketException;
+import connection.exception.InvalidPacketException;
 
 /**
  * Packet implementation

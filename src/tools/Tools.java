@@ -1,4 +1,4 @@
-package nl.utwente.wsc.utils;
+package tools;
 
 /**
  * Tools holding class.

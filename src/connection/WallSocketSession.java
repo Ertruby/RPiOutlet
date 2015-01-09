@@ -8,8 +8,9 @@ import java.util.LinkedList;
 
 import javax.net.ssl.SSLSocket;
 
+import tools.Tools;
+import main.MainManager;
 import nl.utwente.wsc.com.model.exception.InvalidPacketException;
-import nl.utwente.wsc.utils.Tools;
 
 public class WallSocketSession extends Thread {
 	

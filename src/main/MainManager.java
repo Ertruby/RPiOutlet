@@ -1,8 +1,11 @@
-package connection;
+package main;
+
+import connection.WallSocketServer;
+import gpio.RGBLed;
 
 public class MainManager {
 	
-	public static final int port = 4422;
+	public static final int port = 14422;
 	private static WallSocketServer sock = null;
 	private static RGBLed lamp = null;
 	
@@ -13,7 +16,7 @@ public class MainManager {
 		
 		//create a lampmanager
 		System.out.println("Starting a lamp controller...");
-		newLampManager();
+		//newLampManager();
 	}
 	
 	public void newSocketManager() {
