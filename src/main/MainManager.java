@@ -5,7 +5,7 @@ import gpio.RGBLed;
 
 public class MainManager {
 	
-	public static final int port = 14422;
+	public static final int port = 7331;
 	private static WallSocketServer sock = null;
 	private static RGBLed lamp = null;
 	

@@ -10,10 +10,12 @@ import java.util.List;
 //import java.util.Set;
 
 
+
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
+import tools.Logger;
 import main.MainManager;
 
 //import android.util.Log;
@@ -30,28 +32,28 @@ public class WallSocketServer extends Thread {
 		this.mm = mm;
 		activeSessions = new ArrayList<WallSocketSession>();
 		setName("PiServer");
-		System.setProperty("javax.net.ssl.keyStore", "keystore");
-		System.setProperty("javax.net.ssl.keyStorePassword", "picloudkeypass");
-//		Log.d(this.toString(), "Starting server on port 20022");
+		System.setProperty("javax.net.ssl.keyStore", "server.jks");
+		System.setProperty("javax.net.ssl.keyStorePassword", "WScDrone5A");
+		Logger.log("Starting server on port: " + portNr);
 		try {
 			SSLServerSocketFactory sslf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 			socket = (SSLServerSocket) sslf.createServerSocket(portNr);
 		} catch (IOException e) {
-//			Log.e(this.toString(), "Could not create server socket: " + e);
+			Logger.logError("Could not create server socket: " + e);
 			System.out.println("Could not create server socket: " + e);
 			System.exit(1);
 		}
 		try {
 			socket.setSoTimeout(1000);
 		} catch (SocketException e) {
-//			Log.e(this.toString(), "Could not set socket timeout: " + e);
+			Logger.logError("Could not set socket timeout: " + e);
 		}
-//		Log.d(this.toString(), "Socket created");
+		Logger.log("Socket created");
 	}
 
 	@Override
 	public void run() {
-		//Log.d(this.toString(), "Starting server loop.");
+		Logger.log("Starting server loop.");
 		while (!stop) {
 			SSLSocket client = null;
 			try {
@@ -60,10 +62,10 @@ public class WallSocketServer extends Thread {
 				// do nothing, this is normal
 				continue;
 			} catch (IOException e) {
-				//Log.e(this.toString(), "Exception accepting connection: " + e);
+				Logger.log("Exception accepting connection: " + e);
 			}
 			if (client != null) {
-				//Log.d(this.toString(), "New client accepted: " + client.getInetAddress());
+				Logger.log("New client accepted: " + client.getInetAddress());
 				WallSocketSession session;
 				try {
 					session = new WallSocketSession(mm, this, client);
@@ -77,11 +79,11 @@ public class WallSocketServer extends Thread {
 				session.start();
 			}
 		}
-		//Logger.log("Server stopped.");
+		Logger.log("Server stopped.");
 	}
 
 	public void stopServer() {
-		//Logger.log("Stopping Server.");
+		Logger.log("Stopping Server.");
 		for (WallSocketSession session: activeSessions) {
 			session.stopSession();
 		}
@@ -89,7 +91,7 @@ public class WallSocketServer extends Thread {
 		try {
 			socket.close();
 		} catch (IOException e) {
-			//Logger.logError("Could not close server socket: " + e);
+			Logger.logError("Could not close server socket: " + e);
 		}
 	}
 

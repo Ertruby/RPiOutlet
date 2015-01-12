@@ -8,9 +8,10 @@ import java.util.LinkedList;
 
 import javax.net.ssl.SSLSocket;
 
+import connection.exception.InvalidPacketException;
+import tools.Logger;
 import tools.Tools;
 import main.MainManager;
-import nl.utwente.wsc.com.model.exception.InvalidPacketException;
 
 public class WallSocketSession extends Thread {
 	
@@ -47,14 +48,14 @@ public class WallSocketSession extends Thread {
 
 	@Override
 	public void run() {
-		//Logger.log("Starting session for " + socket.getInetAddress());
+		Logger.log("Starting session for " + socket.getInetAddress());
 		byte[] headerbuff = new byte[PacketHeader.HEADER_LENGTH];
         while (!stop) {
             do {
                 try {
                     headerbuff[0] = (byte) in.read();
                 } catch (IOException ex) {
-                    //Log.e(this.toString(), "Connection dead");
+                	Logger.logError("Connection dead");
                     stop = true;
                     continue;
                 }
@@ -63,7 +64,7 @@ public class WallSocketSession extends Thread {
             try {
                 in.read(headerbuff, 1, headerbuff.length - 1);
             } catch (IOException ex) {
-            	//Log.e(this.toString(), "Connection dead");
+            	Logger.logError("Connection dead");
             	server.unregister(this);
                 stop = true;
                 continue;                  
@@ -72,8 +73,8 @@ public class WallSocketSession extends Thread {
             try {
                 header = new PacketHeader(headerbuff);
             } catch (InvalidPacketException ex) {
-                //Log.e(this.toString(), "Got invalid header: " + 
-                        //Arrays.toString(headerbuff));
+            	Logger.logError("Got invalid header: " + 
+                        Arrays.toString(headerbuff));
                 continue;
             }
             int len = header.getPacketLength();
@@ -89,23 +90,29 @@ public class WallSocketSession extends Thread {
             }
             Packet packet = new Packet(header, receiverBuff);
             packetHandler(packet);
-            //Log.d(this.toString(), "Got packet: " + packet.toString());
         }
 	}
 	
 	private void packetHandler(Packet packet) {
 		if (!Packet.isCommandPacket(packet)) {
+			Logger.log("Got " + (Packet.isDataPacket(packet) ? "data": "answer") 
+					+ " packet: " + packet.toString());
 			return;
 		}
 		if (Command.isIsOnCommand(packet.getData())) {
+        	Logger.log("Got command packet: " + packet.toString());
 			//TODO sendPacket(Packet.createResponse(mm.IsOn());
 		} else if (Command.isTurnOnCommand(packet.getData())) {
+			Logger.log("Got command packet: " + packet.toString());
 			//TODO sendPacket(Packet.createResponse(mm.turnOn());
 		} else if (Command.isTurnOffCommand(packet.getData())) {
+			Logger.log("Got command packet: " + packet.toString());
 			//TODO sendPacket(Packet.createResponse(mm.turnOff());
 		} else if (Command.isGetValuesCommand(packet.getData())) {
+			Logger.log("Got command packet: " + packet.toString());
 			//TODO sendPacket(Packet.createResponse(mm.getValues());
 		} else if (Command.isGetColorCommand(packet.getData())) {
+			Logger.log("Got command packet: " + packet.toString());
 			//TODO sendPacket(Packet.createResponse(mm.getColor());
 		} else {
 			return;
@@ -120,6 +127,8 @@ public class WallSocketSession extends Thread {
 			//Logger.logError(e);
 		}
 		try {
+			in.close();
+			out.close();
 			socket.close();
 		} catch (IOException e) {
 			//Logger.logError(e);

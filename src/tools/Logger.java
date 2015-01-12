@@ -18,7 +18,7 @@ public final class Logger implements Thread.UncaughtExceptionHandler {
 		FileWriter fw = null;
 
 		try {
-			l = new File("piCloud.log");
+			l = new File("piWallSocket.log");
 			l.createNewFile();
 			fw = new FileWriter(l);
 		} catch (IOException e) {
