@@ -15,7 +15,7 @@ public class Command {
 
     public Command(String command, String... arguments) {
         this.command = command;
-        if (arguments != null && arguments.length != 0 && arguments[0] != null) {
+        if (arguments != null && arguments.length != 0 && arguments[0] != null && arguments[0] != "") {
             this.arguments = arguments;
         }
     }
