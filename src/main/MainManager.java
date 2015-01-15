@@ -5,7 +5,7 @@ import gpio.LampController;
 
 public class MainManager {
 
-	public static final int port = 7331;
+	public static final int port = 7332;
 	private static boolean isOn = false;
 	private static WallSocketServer sock = null;
 	private static LampController lamp = null;

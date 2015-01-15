@@ -17,6 +17,11 @@ public class PowerMonitor extends Thread {
 	private Timer timer = new Timer();
 	private String path = "files/";
 	private File folder = new File("files");
+	
+	//testing only
+	private int[] test = {10,23,23,54,89,100,230,245,20,239,2394,29,210,459,983,648,1837,453};
+	private int j = 0;
+	
 	private int pulseCounter = 0;
 	private TimerTask task = new TimerTask() {
 		public void run() {
@@ -27,7 +32,10 @@ public class PowerMonitor extends Thread {
 				LocalTime currentTime = new LocalTime();
 				PrintWriter out = new PrintWriter(new BufferedWriter(
 						new FileWriter(path + date.toString(), true)));
-				out.println(currentTime + "," + pulseCounter);
+				if (j < test.length) {
+					out.println(currentTime + "," + test[j]);
+					j++;
+				}
 				pulseCounter = 0;
 				out.close();
 			} catch (IOException e) {
@@ -41,7 +49,7 @@ public class PowerMonitor extends Thread {
 	}
 
 	public void run() {
-		timer.scheduleAtFixedRate(task, 0, 1000);
+		timer.scheduleAtFixedRate(task, 60, 30*1000);
 //		System.out.println(readFromFiles());
 	}
 
