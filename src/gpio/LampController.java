@@ -6,7 +6,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
 
-public class RGBLed extends Thread {
+public class LampController extends Thread {
 	private final GpioController gpio = GpioFactory.getInstance();
 
 	private final GpioPinDigitalOutput greenPin = gpio
@@ -16,20 +16,40 @@ public class RGBLed extends Thread {
 	private final GpioPinDigitalOutput redPin = gpio.provisionDigitalOutputPin(
 			RaspiPin.GPIO_05, "red", PinState.LOW);
 
-	public RGBLed() {
+	public LampController() {
 		
 	}
 	
-	public void toggleRed() {
-		redPin.toggle();
+	public ColorType getColor() {
+		ColorType toReturn = ColorType.NONE;
+//		redPin.isHigh();
+//		greenPin.isHigh();
+		if (redPin.isHigh() && greenPin.isLow()) {
+			toReturn = ColorType.RED;
+		} else if (greenPin.isHigh() && redPin.isLow()) {
+			toReturn = ColorType.GREEN;
+		} else if (greenPin.isHigh() && redPin.isHigh()) {
+			toReturn = ColorType.ORANGE;
+		}
+		return toReturn;
+	} 
+	
+	public void setGreen() {
+		redPin.low();
+		greenPin.high();
+		bluePin.low();
 	}
 	
-	public void toggleBlue() {
-		bluePin.toggle();
+	public void setOrange() {
+		redPin.high();
+		greenPin.high();
+		bluePin.low();
 	}
 	
-	public void toggleGreen() {
-		greenPin.toggle();
+	public void setRed() {
+		redPin.high();
+		greenPin.low();
+		bluePin.low();
 	}
 
 	public void shutdown() {
