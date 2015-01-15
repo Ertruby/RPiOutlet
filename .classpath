@@ -4,5 +4,6 @@
 	<classpathentry kind="lib" path="libs/jsch-0.1.51.jar"/>
 	<classpathentry kind="lib" path="libs/pi4j-core.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/joda-time-2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

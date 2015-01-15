@@ -95,29 +95,35 @@ public class WallSocketSession extends Thread {
 	}
 	
 	private void packetHandler(Packet packet) {
-		if (!Packet.isCommandPacket(packet)) {
-			Logger.log("Got " + (Packet.isDataPacket(packet) ? "data": "answer") 
-					+ " packet: " + packet.toString());
-			return;
+		try { 
+			if (!Packet.isCommandPacket(packet)) {
+				Logger.log("Got " + (Packet.isDataPacket(packet) ? "data": "answer") 
+						+ " packet: " + packet.toString());
+				return;
+			}
+			if (Command.isIsOnCommand(packet.getData())) {
+	        	Logger.log("Got command packet: " + packet.toString());
+				sendPacket(Packet.createResponse(mm.isOn()));
+			} else if (Command.isTurnOnCommand(packet.getData())) {
+				Logger.log("Got command packet: " + packet.toString());
+				sendPacket(Packet.createResponse(mm.turnOn()));
+			} else if (Command.isTurnOffCommand(packet.getData())) {
+				Logger.log("Got command packet: " + packet.toString());
+				sendPacket(Packet.createResponse(mm.turnOff()));
+			} else if (Command.isGetValuesCommand(packet.getData())) {
+				Logger.log("Got command packet: " + packet.toString());
+				sendPacket(Packet.createResponse(mm.getValues()));
+				return;
+			} else if (Command.isGetColorCommand(packet.getData())) {
+				Logger.log("Got command packet: " + packet.toString());
+				sendPacket(Packet.createResponse(mm.getColor()));
+			} else {
+				return;
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
 		}
-		if (Command.isIsOnCommand(packet.getData())) {
-        	Logger.log("Got command packet: " + packet.toString());
-			//TODO sendPacket(Packet.createResponse(mm.IsOn());
-		} else if (Command.isTurnOnCommand(packet.getData())) {
-			Logger.log("Got command packet: " + packet.toString());
-			//TODO sendPacket(Packet.createResponse(mm.turnOn());
-		} else if (Command.isTurnOffCommand(packet.getData())) {
-			Logger.log("Got command packet: " + packet.toString());
-			//TODO sendPacket(Packet.createResponse(mm.turnOff());
-		} else if (Command.isGetValuesCommand(packet.getData())) {
-			Logger.log("Got command packet: " + packet.toString());
-			//TODO sendPacket(Packet.createResponse(mm.getValues());
-		} else if (Command.isGetColorCommand(packet.getData())) {
-			Logger.log("Got command packet: " + packet.toString());
-			//TODO sendPacket(Packet.createResponse(mm.getColor());
-		} else {
-			return;
-		}
+		
 	}
 	
 	public void stopSession() {
