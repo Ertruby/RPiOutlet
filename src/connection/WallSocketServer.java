@@ -2,12 +2,16 @@ package connection;
 
 //import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 //import java.util.HashSet;
 import java.util.List;
 //import java.util.Set;
+
+
 
 
 
@@ -34,7 +38,11 @@ public class WallSocketServer extends Thread {
 		setName("PiServer");
 		System.setProperty("javax.net.ssl.keyStore", "server.jks");
 		System.setProperty("javax.net.ssl.keyStorePassword", "WScDrone5A");
-		Logger.log("Starting server on port: " + portNr);
+		try {
+			Logger.log("Starting server on: " + InetAddress.getLocalHost().getHostAddress() + ":" + portNr);
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			SSLServerSocketFactory sslf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 			socket = (SSLServerSocket) sslf.createServerSocket(portNr);
