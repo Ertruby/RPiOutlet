@@ -6,13 +6,14 @@ import gpio.LampController;
 public class MainManager {
 
 	public static final int port = 7332;
+	public static final int greenThreshold = 150;
+	public static final int orangeThreshold = 350;
 	private static boolean isOn = false;
 	private static WallSocketServer sock = null;
 	private static LampController lamp = null;
 	private static PowerMonitor pm = null;
 
 	public MainManager() {
-		// create a socketmanager
 		System.out.println("Starting a socket manager...");
 		sock = new WallSocketServer(this, port);
 		sock.start();
@@ -28,11 +29,11 @@ public class MainManager {
 		if (pm == null & lamp == null) {
 			isOn = true;
 			System.out.println("Starting a lamp controller...");
-			// lamp = new LampController();
-			// lamp.start();
+			lamp = new LampController();
+			lamp.start();
 
 			System.out.println("Starting a power monitor...");
-			pm = new PowerMonitor();
+			pm = new PowerMonitor(this);
 			pm.start();
 		}
 		return String.valueOf(toReturn);
@@ -49,6 +50,11 @@ public class MainManager {
 		}		
 		return String.valueOf(toReturn);
 	}
+	
+	public void quit() {
+		turnOff();
+		sock.stopServer();
+	}
 
 	public String getValues() {
 		return pm.readFromFiles();
@@ -57,38 +63,18 @@ public class MainManager {
 	public String getColor() {
 		return lamp.getColor().toString();
 	}
-
-//	private void newLampManager() {
-//
-//		int i = 0;
-//		boolean go = true;
-//
-//		while (go) {
-//			if (i == 0) {
-//				lamp.toggleGreen();
-//				i++;
-//			} else if (i == 1) {
-//				lamp.toggleRed();
-//				i++;
-//			} else if (i == 2) {
-//				lamp.toggleGreen();
-//				i++;
-//			} else {
-//				go = false;
-//			}
-//
-//			try {
-//				LampController.sleep(5000);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//
-//		lamp.shutdown();
-//	}
+	
+	public void colorChanger(int value) {
+		if (value <= greenThreshold) {
+			lamp.setGreen();
+		} else if (value <= orangeThreshold) {
+			lamp.setOrange();
+		} else {
+			lamp.setRed();
+		}
+	}
 
 	public static void main(String args[]) {
 		new MainManager();
-
 	}
 }
