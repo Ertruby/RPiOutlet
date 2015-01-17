@@ -6,7 +6,7 @@ import gpio.LampController;
 
 public class MainManager {
 
-	public static final int port = 1293;
+	public static final int port = 7331;
 	public static final int greenThreshold = 150;
 	public static final int orangeThreshold = 350;
 	private static boolean isOn = false;
@@ -29,11 +29,8 @@ public class MainManager {
 
 	public String turnOn() {
 		boolean toReturn = false;
-		if (pm == null & lamp == null) {
+		if (pm == null) {
 			isOn = true;
-			//comment de twee regels hieronder weg als je het op een laptop wilt runnen,
-			//zet de variable simulate naar false in PowerMonitor.java en comment 
-			//regel 58: mm.colorChanger(pulseCounter); weg.
 			if (runOnPI) {
 				System.out.println("Starting a lamp controller...");
 				lamp = new LampController();
@@ -50,7 +47,7 @@ public class MainManager {
 
 	public String turnOff() {
 		boolean toReturn = false;
-		if (pm != null & lamp != null) {
+		if (pm != null) {
 			pm.shutdown();
 			pm = null;
 			if (runOnPI) {

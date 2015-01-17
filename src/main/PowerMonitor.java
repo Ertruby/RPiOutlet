@@ -14,15 +14,11 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
 public class PowerMonitor extends Thread {
+	private static final String PATH = "files/";
 	private Timer timer = new Timer();
-	private String path = "files/";
-	private File folder = new File("files");
 	private MainManager mm;
 	private Simulator sim;
 	//true = simulation, false = normal execution
-	//comment de twee regels hieronder weg als je het op een laptop wilt runnen,
-	//zet de variable simulate naar false in PowerMonitor.java en comment 
-	//regel 58: mm.colorChanger(pulseCounter); weg.
 	private boolean simulate = System.getProperty("os.name").equals("Linux");
 	
 	//testing only
@@ -35,15 +31,26 @@ public class PowerMonitor extends Thread {
 	private int interval = 1*1000;
 	private int pulseCounter = 0;
 	private int lastValue = 0;
+	
+	static {
+		if (!new File(PATH).exists()) {
+			try {
+				new File(PATH).createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private TimerTask task = new TimerTask() {
 		public void run() {
 			try {
 				LocalDate date = new LocalDate();
-				File f = new File(path + date.toString());
+				File f = new File(PATH + date.toString());
 				f.createNewFile();
 				LocalTime currentTime = new LocalTime();
 				PrintWriter out = new PrintWriter(new BufferedWriter(
-						new FileWriter(path + date.toString(), true)));
+						new FileWriter(PATH + date.toString(), true)));
 				
 				//testing only
 //				if (j < test.length) {
@@ -100,7 +107,7 @@ public class PowerMonitor extends Thread {
 	
 	public String readFromFiles() {
 		String toReturn = "";
-		for (final File fileEntry : folder.listFiles()) {
+		for (final File fileEntry : new File(PATH).listFiles()) {
 			if (!fileEntry.isDirectory()) {
 				try {
 					System.out.println(fileEntry.getName());

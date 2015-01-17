@@ -24,9 +24,6 @@ public class WallSocketSession extends Thread {
     
     private BufferedInputStream in;
     private BufferedOutputStream out;
-    
-    private volatile LinkedList<Packet> receiveBuffer;
-    private final Object lock = new Object();
 
 	public WallSocketSession(MainManager mm, WallSocketServer server, SSLSocket socket) throws IOException {
 		this.mm = mm;
@@ -100,29 +97,23 @@ public class WallSocketSession extends Thread {
 						+ " packet: " + packet.toString());
 				return;
 			}
+			Logger.log("Got command packet: " + packet.toString());	
 			if (Command.isIsOnCommand(packet.getData())) {
-	        	Logger.log("Got command packet: " + packet.toString());
 				sendPacket(Packet.createResponse(mm.isOn()));
 			} else if (Command.isTurnOnCommand(packet.getData())) {
-				Logger.log("Got command packet: " + packet.toString());
 				sendPacket(Packet.createResponse(mm.turnOn()));
 			} else if (Command.isTurnOffCommand(packet.getData())) {
-				Logger.log("Got command packet: " + packet.toString());
 				sendPacket(Packet.createResponse(mm.turnOff()));
 			} else if (Command.isGetValuesCommand(packet.getData())) {
-				Logger.log("Got command packet: " + packet.toString());
 				sendPacket(Packet.createResponse(mm.getValues()));
-				return;
 			} else if (Command.isGetColorCommand(packet.getData())) {
-				Logger.log("Got command packet: " + packet.toString());
 				sendPacket(Packet.createResponse(mm.getColor()));
 			} else {
 				return;
-			}
+			}		
 		} catch(IOException e) {
-			e.printStackTrace();
+			Logger.logError(e);
 		}
-		
 	}
 	
 	public void selfShutdown() {
@@ -135,14 +126,14 @@ public class WallSocketSession extends Thread {
 		try {
 			sendPacket(Packet.createCommandPacket(Command.goodBye()));
 		} catch (IOException e) {
-			//Logger.logError(e);
+			Logger.logError(e);
 		}
 		try {
 			in.close();
 			out.close();
 			socket.close();
 		} catch (IOException e) {
-			//Logger.logError(e);
+			Logger.logError(e);
 		}
 	}
 

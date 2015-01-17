@@ -8,6 +8,8 @@ import com.pi4j.io.gpio.RaspiPin;
 
 public class LampController extends Thread {
 	private final GpioController gpio = GpioFactory.getInstance();
+	
+	private ColorType currColor;
 
 	private final GpioPinDigitalOutput greenPin = gpio
 			.provisionDigitalOutputPin(RaspiPin.GPIO_00, "green", PinState.LOW);
@@ -16,41 +18,37 @@ public class LampController extends Thread {
 	private final GpioPinDigitalOutput redPin = gpio.provisionDigitalOutputPin(
 			RaspiPin.GPIO_05, "red", PinState.LOW);
 
-	public LampController() {}
+	public LampController() {
+		currColor = ColorType.NONE;
+	}
 	
 	public ColorType getColor() {
-		ColorType toReturn = ColorType.NONE;
-//		redPin.isHigh();
-//		greenPin.isHigh();
-		if (redPin.isHigh() && greenPin.isLow()) {
-			toReturn = ColorType.RED;
-		} else if (greenPin.isHigh() && redPin.isLow()) {
-			toReturn = ColorType.GREEN;
-		} else if (greenPin.isHigh() && redPin.isHigh()) {
-			toReturn = ColorType.ORANGE;
-		}
-		return toReturn;
+		return currColor;
 	} 
 	
 	public void setGreen() {
+		currColor = ColorType.GREEN;
 		redPin.low();
 		greenPin.high();
 		bluePin.low();
 	}
 	
 	public void setOrange() {
+		currColor = ColorType.ORANGE;
 		redPin.high();
 		greenPin.high();
 		bluePin.low();
 	}
 	
 	public void setRed() {
+		currColor = ColorType.RED;
 		redPin.high();
 		greenPin.low();
 		bluePin.low();
 	}
 
 	public void shutdown() {
+		currColor = ColorType.NONE;
 		redPin.low();
 		greenPin.low();
 		bluePin.low();

@@ -1,3 +1,3 @@
-[main+0.0]					Starting server on: 10.87.1.95:1293
-[main+1.015]					Socket created
-[PiServer+1.015]					Starting server loop.
+[main+0.0]					Starting server on: 192.168.0.13:7331
+[main+0.683]					Socket created
+[PiServer+0.683]					Starting server loop.
