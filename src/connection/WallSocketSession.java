@@ -56,8 +56,8 @@ public class WallSocketSession extends Thread {
                 try {
                     headerbuff[0] = (byte) in.read();
                 } catch (IOException ex) {
-                	Logger.logError("Connection dead");
-                    stop = true;
+                	Logger.logError("Connection dead - while waiting");
+                	selfShutdown();
                     continue;
                 }
                 Tools.waitForMs(50);
@@ -65,9 +65,8 @@ public class WallSocketSession extends Thread {
             try {
                 in.read(headerbuff, 1, headerbuff.length - 1);
             } catch (IOException ex) {
-            	Logger.logError("Connection dead");
-            	server.unregister(this);
-                stop = true;
+            	Logger.logError("Connection dead - while reading header");
+            	selfShutdown();
                 continue;                  
             }
             PacketHeader header = null;
@@ -85,8 +84,8 @@ public class WallSocketSession extends Thread {
                 while (i < len && 
                         (i += in.read(receiverBuff, i, len - i)) != -1){}
             } catch (IOException ex) {
-                ex.printStackTrace();
-                stop = true;
+            	Logger.logError("Connection dead - while reading data");
+                selfShutdown();
                 continue;
             }
             Packet packet = new Packet(header, receiverBuff);
@@ -124,6 +123,11 @@ public class WallSocketSession extends Thread {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void selfShutdown() {
+		 stop = true;
+		 server.unregister(this);
 	}
 	
 	public void stopSession() {

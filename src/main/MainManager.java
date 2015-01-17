@@ -5,14 +5,14 @@ import gpio.LampController;
 
 public class MainManager {
 
-	public static final int port = 7332;
+	public static final int port = 1293;
 	private static boolean isOn = false;
 	private static WallSocketServer sock = null;
 	private static LampController lamp = null;
 	private static PowerMonitor pm = null;
 
 	public MainManager() {
-		// create a socketmanager
+		// create a socket manager
 		System.out.println("Starting a socket manager...");
 		sock = new WallSocketServer(this, port);
 		sock.start();

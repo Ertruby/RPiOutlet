@@ -16,9 +16,7 @@ public class LampController extends Thread {
 	private final GpioPinDigitalOutput redPin = gpio.provisionDigitalOutputPin(
 			RaspiPin.GPIO_05, "red", PinState.LOW);
 
-	public LampController() {
-		
-	}
+	public LampController() {}
 	
 	public ColorType getColor() {
 		ColorType toReturn = ColorType.NONE;
