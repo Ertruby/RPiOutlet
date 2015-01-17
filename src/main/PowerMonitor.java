@@ -20,6 +20,8 @@ public class PowerMonitor extends Thread {
 	private MainManager mm;
 	private Simulator sim;
 	//true = simulation, false = normal execution
+	//comment de twee regels hieronder weg als je het op een laptop wilt runnen
+	//en zet de variable simulate naar false in PowerMonitor.java
 	private boolean simulate = true;
 	
 	//testing only
