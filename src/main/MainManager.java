@@ -1,6 +1,7 @@
 package main;
 
 import connection.WallSocketServer;
+import gpio.ColorType;
 import gpio.LampController;
 
 public class MainManager {
@@ -12,6 +13,8 @@ public class MainManager {
 	private static WallSocketServer sock = null;
 	private static LampController lamp = null;
 	private static PowerMonitor pm = null;
+	
+	private boolean runOnPI = System.getProperty("os.name").equals("Linux");
 
 	public MainManager() {
 		System.out.println("Starting a socket manager...");
@@ -28,13 +31,14 @@ public class MainManager {
 		boolean toReturn = false;
 		if (pm == null & lamp == null) {
 			isOn = true;
-			System.out.println("Starting a lamp controller...");
 			//comment de twee regels hieronder weg als je het op een laptop wilt runnen,
 			//zet de variable simulate naar false in PowerMonitor.java en comment 
 			//regel 58: mm.colorChanger(pulseCounter); weg.
-			lamp = new LampController();
-			lamp.start();
-
+			if (runOnPI) {
+				System.out.println("Starting a lamp controller...");
+				lamp = new LampController();
+				lamp.start();
+			}
 			System.out.println("Starting a power monitor...");
 			pm = new PowerMonitor(this);
 			pm.start();
@@ -49,8 +53,10 @@ public class MainManager {
 		if (pm != null & lamp != null) {
 			pm.shutdown();
 			pm = null;
-			lamp.shutdown();
-			lamp = null;
+			if (runOnPI) {
+				lamp.shutdown();
+				lamp = null;
+			}
 			isOn = false;
 		}		
 		return String.valueOf(toReturn);
@@ -66,7 +72,11 @@ public class MainManager {
 	}
 	
 	public String getColor() {
-		return lamp.getColor().toString();
+		if (runOnPI) {
+			return lamp.getColor().toString();
+		} else {
+			return ColorType.NONE.toString();
+		}
 	}
 	
 	public void colorChanger(int value) {

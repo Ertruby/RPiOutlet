@@ -23,7 +23,7 @@ public class PowerMonitor extends Thread {
 	//comment de twee regels hieronder weg als je het op een laptop wilt runnen,
 	//zet de variable simulate naar false in PowerMonitor.java en comment 
 	//regel 58: mm.colorChanger(pulseCounter); weg.
-	private boolean simulate = true;
+	private boolean simulate = System.getProperty("os.name").equals("Linux");
 	
 	//testing only
 	//Microwave = 700, Mixer = 150, Refrigerator = 500, Shaver = 9, Light = 16, Notebook = 50, TV = 50,
@@ -55,7 +55,9 @@ public class PowerMonitor extends Thread {
 //				}
 				//else 
 				out.println(currentTime + "," + pulseCounter);
-				mm.colorChanger(pulseCounter);
+				if (simulate) {
+					mm.colorChanger(pulseCounter);				
+				}
 				//pulseCounter = 0;
 				
 				out.close();
