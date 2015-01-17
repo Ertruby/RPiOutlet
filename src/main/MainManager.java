@@ -30,7 +30,7 @@ public class MainManager {
 			isOn = true;
 			System.out.println("Starting a lamp controller...");
 			//comment de twee regels hieronder weg als je het op een laptop wilt runnen
-			//en zet de variable simulate naar false in PowerMeter.java
+			//en zet de variable simulate naar false in PowerMonitor.java
 			lamp = new LampController();
 			lamp.start();
 
