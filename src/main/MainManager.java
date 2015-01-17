@@ -32,11 +32,13 @@ public class MainManager {
 		// set up port
 		setUpPort();
 		// start server
-		System.out.println("Starting the socket server (type \"quit\" to shutdown)...");
+		System.out.println("Starting the socket server (type \"q\" to shutdown)...");
 		sock = new WallSocketServer(this, port);
 		sock.start();
-		startStopListener();
 		turnOn();
+		if (!runOnPI) {
+			startStopListener();
+		}
 	}
 	
 	private void setUpPort() {
@@ -45,36 +47,38 @@ public class MainManager {
 		while (!valid) {
 			String res = Tools.waitForInput(System.in);
 			if (res.equals("d")) {
+				res = DEF_PORT + "";
+			}
+			ServerSocket testSock = null;
+			try {
+				int portnr = Integer.parseInt(res);
+				testSock = new ServerSocket(portnr);
 				valid = true;
-			} else {
-				ServerSocket testSock = null;
-				try {
-					int portnr = Integer.parseInt(res);
-					testSock = new ServerSocket(portnr);
-					valid = true;
-					port = portnr;
-				} catch (IllegalArgumentException e) {
-					System.out.println("Invalid port number, please try again");
-				} catch (IOException e) {
-					System.out.println("Port is already in use, please try again");
-				} finally {
-					if (testSock != null) {
-						try {
-							testSock.close();
-						} catch (IOException e) {}
-					}
+				port = portnr;
+			} catch (IllegalArgumentException e) {
+				System.out.println("Invalid port number, please try again");
+			} catch (IOException e) {
+				System.out.println("Port is already in use, please try again");
+			} finally {
+				if (testSock != null) {
+					try {
+						testSock.close();
+					} catch (IOException e) {}
 				}
 			}
 		}
 	}
 	
+	/**
+	 * Only used when running on laptop.
+	 */
 	private void startStopListener() {
 		Thread thread = new Thread(new Runnable() {		
 			@Override
 			public void run() {
 				while (true) {
 					String line = Tools.waitForInput(System.in);
-					if (line.equals("quit")) {
+					if (line.startsWith("q")) {
 						quit();
 					}
 				}		
@@ -121,8 +125,8 @@ public class MainManager {
 	}
 	
 	public void quit() {
-		turnOff();
-		sock.stopServer();	
+		sock.stopServer();
+		turnOff();	
 	}
 
 	public String getValues() {

@@ -15,11 +15,16 @@ import java.util.List;
 
 
 
+
+
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
+import org.omg.PortableServer.THREAD_POLICY_ID;
+
 import tools.Logger;
+import tools.Tools;
 import main.MainManager;
 
 //import android.util.Log;
@@ -92,10 +97,11 @@ public class WallSocketServer extends Thread {
 
 	public void stopServer() {
 		Logger.log("Stopping Server.");
-		for (WallSocketSession session: activeSessions) {
+		for (WallSocketSession session : activeSessions) {
 			session.stopSession();
 		}
 		stop = true;
+		Tools.waitForMs(1000);
 		try {
 			socket.close();
 		} catch (IOException e) {

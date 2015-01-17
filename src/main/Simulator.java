@@ -6,44 +6,49 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Simulator extends Thread {
+	
 	private Timer timer = new Timer();
 	private PowerMonitor pm;
 	private MainManager mm;
+	
+	private String helpString = "Items: mic(rowave), mix(er), ref(rigerator), s(haver), l(amp), tv, c(offee), "
+			+ "d(ishwasher)\nColors: r(ed), o(range), g(reen)\nOther: h(elp), q(uit)";
+	
 	private TimerTask task = new TimerTask() {
 		public void run() {
 			String s = userInput("> ");
 			//Microwave = 700, Mixer = 150, Refrigerator = 500, Shaver = 9, Light = 16, Notebook = 50, TV = 50,
 			//Coffee maker = 800, Dishwasher = 1000,
-			if ("refrigerator".equals(s.toLowerCase())) {
+			if (s.startsWith("ref")) {
 				pm.setPulse(500);
-			} else if ("microwave".equals(s.toLowerCase())) {
+			} else if (s.startsWith("mic")) {
 				pm.setPulse(700);
-			} else if ("mixer".equals(s.toLowerCase())) {
+			} else if (s.startsWith("mix")) {
 				pm.setPulse(150);
-			} else if ("shaver".equals(s.toLowerCase())) {
+			} else if (s.startsWith("s")) {
 				pm.setPulse(9);
-			} else if ("lamp".equals(s.toLowerCase())) {
+			} else if (s.startsWith("l")) {
 				pm.setPulse(50);
-			} else if ("tv".equals(s.toLowerCase())) {
+			} else if (s.startsWith("tv")) {
 				pm.setPulse(50);
-			} else if ("coffee".equals(s.toLowerCase())) {
+			} else if (s.startsWith("c")) {
 				pm.setPulse(800);
-			} else if ("dishwasher".equals(s.toLowerCase())) {
+			} else if (s.startsWith("d")) {
 				pm.setPulse(1000);
-			} else if ("red".equals(s.toLowerCase())) {
+			} else if (s.startsWith("r")) {
 				pm.setPulse(351);
-			} else if ("orange".equals(s.toLowerCase())) {
+			} else if (s.startsWith("o")) {
 				pm.setPulse(151);
-			} else if ("green".equals(s.toLowerCase())) {
+			} else if (s.startsWith("g")) {
 				pm.setPulse(0);
-			} else if ("help".equals(s.toLowerCase())) {
-				System.out.println("microwave, mixer, shaver, lamp, tv, coffee, dishwasher, red, orange, green or quit");
-			} else if ("quit".equals(s.toLowerCase())) {
-				timer.cancel();
+			} else if (s.startsWith("h")) {
+				System.out.println(helpString);
+			} else if (s.startsWith("q")) {
 				mm.quit();
+				System.exit(0);
 			} else {
 				System.out.println("Unknown command [" + s + "]");
-				System.out.println("Choose: microwave, mixer, shaver, lamp, tv, coffee, dishwasher, red, orange, green or quit");
+				System.out.println("Choose: "+ helpString);
 			}
 		}
 	};
