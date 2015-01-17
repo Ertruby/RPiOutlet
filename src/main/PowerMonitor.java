@@ -34,11 +34,7 @@ public class PowerMonitor extends Thread {
 	
 	static {
 		if (!new File(PATH).exists()) {
-			try {
-				new File(PATH).createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			new File(PATH).mkdir();
 		}
 	}
 	
