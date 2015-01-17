@@ -29,14 +29,17 @@ public class MainManager {
 		if (pm == null & lamp == null) {
 			isOn = true;
 			System.out.println("Starting a lamp controller...");
-			//comment de twee regels hieronder weg als je het op een laptop wilt runnen
-			//en zet de variable simulate naar false in PowerMonitor.java
+			//comment de twee regels hieronder weg als je het op een laptop wilt runnen,
+			//zet de variable simulate naar false in PowerMonitor.java en comment 
+			//regel 58: mm.colorChanger(pulseCounter); weg.
 			lamp = new LampController();
 			lamp.start();
 
 			System.out.println("Starting a power monitor...");
 			pm = new PowerMonitor(this);
 			pm.start();
+		} else {
+			turnOff();
 		}
 		return String.valueOf(toReturn);
 	}
