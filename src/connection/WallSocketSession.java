@@ -105,7 +105,7 @@ public class WallSocketSession extends Thread {
 			} else if (Command.isTurnOffCommand(packet.getData())) {
 				sendPacket(Packet.createResponse(mm.turnOff()));
 			} else if (Command.isGetValuesCommand(packet.getData())) {
-				sendPacket(Packet.createResponse(mm.getValues()));
+				sendPacket(Packet.createDataPacket(mm.getValues()));
 			} else if (Command.isGetColorCommand(packet.getData())) {
 				sendPacket(Packet.createResponse(mm.getColor()));
 			} else {

@@ -1,17 +1,15 @@
 package main;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
 
 public class PowerMonitor extends Thread {
 	private static final String PATH = "files/";
@@ -19,7 +17,7 @@ public class PowerMonitor extends Thread {
 	private MainManager mm;
 	private Simulator sim;
 	//true = simulation, false = normal execution
-	private boolean simulate = System.getProperty("os.name").equals("Linux");
+	private boolean simulate = !System.getProperty("sun.arch.data.model").equals("64");
 	
 	//testing only
 	//Microwave = 700, Mixer = 150, Refrigerator = 500, Shaver = 9, Light = 16, Notebook = 50, TV = 50,
@@ -43,26 +41,18 @@ public class PowerMonitor extends Thread {
 			try {
 				LocalDate date = new LocalDate();
 				File f = new File(PATH + date.toString());
-				f.createNewFile();
-				LocalTime currentTime = new LocalTime();
+				f.createNewFile();				
+				long currentTime = new DateTime().getMillis();
 				PrintWriter out = new PrintWriter(new BufferedWriter(
 						new FileWriter(PATH + date.toString(), true)));
-				
-				//testing only
-//				if (j < test.length) {
-//					out.println(currentTime + "," + test[j]);
-//					mm.colorChanger(test[j]);
-//					j++;
-//				} else {
-//					j = 0;
-//				}
-				//else 
 				out.println(currentTime + "," + pulseCounter);
 				if (simulate) {
 					mm.colorChanger(pulseCounter);				
-				}
-				//pulseCounter = 0;
-				
+				} 
+//				else {
+//					mm.colorChanger(pulseCounter);
+//					pulseCounter = 0;
+//				}				
 				out.close();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -101,24 +91,5 @@ public class PowerMonitor extends Thread {
 		timer.cancel();
 	}
 	
-	public String readFromFiles() {
-		String toReturn = "";
-		for (final File fileEntry : new File(PATH).listFiles()) {
-			if (!fileEntry.isDirectory()) {
-				try {
-					System.out.println(fileEntry.getName());
-					BufferedReader reader = new BufferedReader(new FileReader(fileEntry));
-					String line = reader.readLine();
-					while (line != null) {
-						toReturn += line + ";";
-						line = reader.readLine();
-					}
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return toReturn;
-	}
+	
 }
