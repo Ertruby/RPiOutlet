@@ -119,6 +119,7 @@ public class MainManager {
 			if (runOnPI) {
 				lamp.shutdown();
 				lamp = null;
+				System.gc();
 			}
 			isOn = false;
 			toReturn = true;

@@ -1,58 +1,6 @@
-[main+0.0]					Starting server on: 130.89.237.205:7331
-[main+0.694]					Socket created
-[PiServer+0.694]					Starting server loop.
-[PiServer+107.658]					New client accepted: /130.89.238.254
-[Session-1-130.89.238.254+107.658]					Starting session for /130.89.238.254
-[Session-1-130.89.238.254+109.315]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-1-130.89.238.254+109.472]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
-[Session-1-130.89.238.254+109.614]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+127.001]					New client accepted: /130.89.238.254
-[Session-2-130.89.238.254+137.57]					Starting session for /130.89.238.254
-[Session-1-130.89.238.254+137.741]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+143.082]					New client accepted: /130.89.238.254
-[Session-3-130.89.238.254+165.783]					Starting session for /130.89.238.254
-
->>>[Session-1-130.89.238.254+165.783]					 ERROR:java.net.SocketException: Connection reset by peer: socket write error
-at java.net.SocketOutputStream.socketWrite0(Native Method)
-at java.net.SocketOutputStream.socketWrite(Unknown Source)
-at java.net.SocketOutputStream.write(Unknown Source)
-at sun.security.ssl.OutputRecord.writeBuffer(Unknown Source)
-at sun.security.ssl.OutputRecord.write(Unknown Source)
-at sun.security.ssl.SSLSocketImpl.writeRecordInternal(Unknown Source)
-at sun.security.ssl.SSLSocketImpl.writeRecord(Unknown Source)
-at sun.security.ssl.AppOutputStream.write(Unknown Source)
-at java.io.BufferedOutputStream.write(Unknown Source)
-at java.io.FilterOutputStream.write(Unknown Source)
-at connection.WallSocketSession.sendPacket(WallSocketSession.java:44)
-at connection.WallSocketSession.packetHandler(WallSocketSession.java:109)
-at connection.WallSocketSession.run(WallSocketSession.java:90)
-<<<
-
-
->>>[Session-1-130.89.238.254+165.783]					 ERROR:Connection dead - while waiting<<<
-
-
->>>[Session-1-130.89.238.254+165.783]					 ERROR:Connection dead - while reading header<<<
-
-[Session-3-130.89.238.254+167.114]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-3-130.89.238.254+167.287]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
-[Session-3-130.89.238.254+167.434]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[Session-3-130.89.238.254+194.112]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 6, raw header: [87, 83, 67, 0, 0, 0, 6], data: turnOn, raw data: [116, 117, 114, 110, 79, 110]
-[Session-3-130.89.238.254+197.88]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+201.516]					New client accepted: /130.89.238.254
-[Session-3-130.89.238.254+223.597]					Starting session for /130.89.238.254
-[PiServer+224.05]					New client accepted: /130.89.238.254
-[Session-4-130.89.238.254+224.05]					Starting session for /130.89.238.254
-[Session-3-130.89.238.254+224.363]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-3-130.89.238.254+224.55]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
-[Session-3-130.89.238.254+224.769]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[Session-4-130.89.238.254+229.243]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-4-130.89.238.254+251.1]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
-[Session-4-130.89.238.254+251.162]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[Input-listener-thread+275.869]					Stopping Server.
-
->>>[Input-listener-thread+278.013]					 ERROR:java.net.SocketException: Connection closed by remote host
-at sun.security.ssl.SSLSocketImpl.checkWrite(Unknown Source)
+[main+0.0]					Starting server on: 130.89.231.127:7331
+[main+0.346]					Socket created
+[PiServer+0.346]					Starting server loop.
 at sun.security.ssl.AppOutputStream.write(Unknown Source)
 at java.io.BufferedOutputStream.flushBuffer(Unknown Source)
 at java.io.BufferedOutputStream.flush(Unknown Source)
