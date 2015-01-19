@@ -20,7 +20,7 @@ public class MainManager {
 
 
 	private int port = DEF_PORT;
-	private static boolean isOn = false;
+	private static boolean isOn = true;
 	private static WallSocketServer sock = null;
 	private static LampController lamp = null;
 	private static PowerMonitor pm = null;
@@ -31,8 +31,7 @@ public class MainManager {
 		// set up port
 		setUpPort();
 		// start server
-		System.out
-				.println("Starting the socket server (type \"q\" to shutdown)...");
+		System.out.println("Starting the socket server (type \"q\" to shutdown)...");
 		sock = new WallSocketServer(this, port);
 		sock.start();
 		turnOn();
@@ -123,6 +122,9 @@ public class MainManager {
 			}
 			isOn = false;
 			toReturn = true;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {}
 		}
 		return String.valueOf(toReturn);
 	}
@@ -133,6 +135,9 @@ public class MainManager {
 	}
 
 	public byte[] getValues() {
+		if (!isOn) {
+			return null;
+		}
 		String toReturn = "";
 		for (final File fileEntry : new File(PATH).listFiles()) {
 			if (!fileEntry.isDirectory()) {
@@ -155,7 +160,7 @@ public class MainManager {
 	}
 
 	public String getColor() {
-		if (runOnPI) {
+		if (isOn && runOnPI) {
 			return lamp.getColor().toString();
 		} else {
 			return ColorType.NONE.toString();

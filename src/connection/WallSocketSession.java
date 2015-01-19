@@ -40,6 +40,7 @@ public class WallSocketSession extends Thread {
      * @throws IOException when connection problems occur.
      */
     public void sendPacket(Packet packet) throws IOException {
+    	System.out.println("Send packet: " + packet.toString());
         out.write(packet.toSendablePacket());
         out.flush();
     }

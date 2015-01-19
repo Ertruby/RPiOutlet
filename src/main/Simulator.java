@@ -38,11 +38,11 @@ public class Simulator extends Thread {
 			} else if (s.startsWith("d")) {
 				pm.setPulse(1000);
 			} else if (s.startsWith("r")) {
-				pm.setPulse(351);
+				pm.setPulse(MainManager.orangeThreshold + 1);
 			} else if (s.startsWith("o")) {
-				pm.setPulse(151);
+				pm.setPulse(MainManager.orangeThreshold - 1);
 			} else if (s.startsWith("g")) {
-				pm.setPulse(0);
+				pm.setPulse(MainManager.greenThreshold - 1);
 			} else if (s.startsWith("b")) {
 				pm.setPulse(-2);
 				mm.colorChanger(ColorType.BLUE);

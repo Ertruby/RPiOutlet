@@ -1,55 +1,97 @@
-[main+0.0]					Starting server on: 127.0.1.1:7331
-[main+0.238]					Socket created
-[PiServer+0.239]					Starting server loop.
-[PiServer+19.964]					New client accepted: /213.52.176.37
-[Session-1-213.52.176.37+19.966]					Starting session for /213.52.176.37
-[Session-1-213.52.176.37+20.492]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-1-213.52.176.37+20.743]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+33.765]					New client accepted: /130.89.225.63
-[Session-2-130.89.225.63+33.766]					Starting session for /130.89.225.63
-[Session-2-130.89.225.63+36.046]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-2-130.89.225.63+42.979]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+622.862]					New client accepted: /130.89.225.63
-[Session-3-130.89.225.63+622.863]					Starting session for /130.89.225.63
-[Session-3-130.89.225.63+623.173]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-3-130.89.225.63+623.346]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+666.227]					New client accepted: /130.89.225.63
-[Session-4-130.89.225.63+666.228]					Starting session for /130.89.225.63
-[Session-4-130.89.225.63+666.375]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-4-130.89.225.63+666.54]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+705.79]					New client accepted: /213.52.176.37
-[Session-5-213.52.176.37+705.791]					Starting session for /213.52.176.37
-[Session-5-213.52.176.37+706.106]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-5-213.52.176.37+706.297]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+817.358]					New client accepted: /130.89.225.63
-[Session-6-130.89.225.63+817.359]					Starting session for /130.89.225.63
-[Session-6-130.89.225.63+817.8]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-6-130.89.225.63+818.184]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+886.382]					New client accepted: /130.89.225.63
-[Session-7-130.89.225.63+886.383]					Starting session for /130.89.225.63
-[Session-7-130.89.225.63+886.575]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-7-130.89.225.63+886.735]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+998.291]					New client accepted: /130.89.225.63
-[Session-8-130.89.225.63+998.292]					Starting session for /130.89.225.63
-[Session-8-130.89.225.63+998.846]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-8-130.89.225.63+999.19]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+1122.867]					New client accepted: /130.89.225.63
-[Session-9-130.89.225.63+1122.868]					Starting session for /130.89.225.63
-[Session-9-130.89.225.63+1123.255]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-9-130.89.225.63+1123.41]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+1128.133]					New client accepted: /213.52.176.37
-[Session-10-213.52.176.37+1128.134]					Starting session for /213.52.176.37
-[Session-10-213.52.176.37+1128.483]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-10-213.52.176.37+1128.681]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+1133.927]					New client accepted: /213.52.176.37
-[Session-11-213.52.176.37+1133.928]					Starting session for /213.52.176.37
-[Session-11-213.52.176.37+1134.283]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-11-213.52.176.37+1134.453]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+1179.724]					New client accepted: /130.89.225.63
-[Session-12-130.89.225.63+1179.725]					Starting session for /130.89.225.63
-[Session-12-130.89.225.63+1180.332]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-12-130.89.225.63+1180.666]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
-[PiServer+1221.596]					New client accepted: /213.52.176.37
-[Session-13-213.52.176.37+1221.597]					Starting session for /213.52.176.37
-[Session-13-213.52.176.37+1221.946]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
-[Session-13-213.52.176.37+1222.157]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
+[main+0.0]					Starting server on: 130.89.237.205:7331
+[main+0.694]					Socket created
+[PiServer+0.694]					Starting server loop.
+[PiServer+107.658]					New client accepted: /130.89.238.254
+[Session-1-130.89.238.254+107.658]					Starting session for /130.89.238.254
+[Session-1-130.89.238.254+109.315]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-1-130.89.238.254+109.472]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[Session-1-130.89.238.254+109.614]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
+[PiServer+127.001]					New client accepted: /130.89.238.254
+[Session-2-130.89.238.254+137.57]					Starting session for /130.89.238.254
+[Session-1-130.89.238.254+137.741]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
+[PiServer+143.082]					New client accepted: /130.89.238.254
+[Session-3-130.89.238.254+165.783]					Starting session for /130.89.238.254
+
+>>>[Session-1-130.89.238.254+165.783]					 ERROR:java.net.SocketException: Connection reset by peer: socket write error
+at java.net.SocketOutputStream.socketWrite0(Native Method)
+at java.net.SocketOutputStream.socketWrite(Unknown Source)
+at java.net.SocketOutputStream.write(Unknown Source)
+at sun.security.ssl.OutputRecord.writeBuffer(Unknown Source)
+at sun.security.ssl.OutputRecord.write(Unknown Source)
+at sun.security.ssl.SSLSocketImpl.writeRecordInternal(Unknown Source)
+at sun.security.ssl.SSLSocketImpl.writeRecord(Unknown Source)
+at sun.security.ssl.AppOutputStream.write(Unknown Source)
+at java.io.BufferedOutputStream.write(Unknown Source)
+at java.io.FilterOutputStream.write(Unknown Source)
+at connection.WallSocketSession.sendPacket(WallSocketSession.java:44)
+at connection.WallSocketSession.packetHandler(WallSocketSession.java:109)
+at connection.WallSocketSession.run(WallSocketSession.java:90)
+<<<
+
+
+>>>[Session-1-130.89.238.254+165.783]					 ERROR:Connection dead - while waiting<<<
+
+
+>>>[Session-1-130.89.238.254+165.783]					 ERROR:Connection dead - while reading header<<<
+
+[Session-3-130.89.238.254+167.114]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-3-130.89.238.254+167.287]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[Session-3-130.89.238.254+167.434]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
+[Session-3-130.89.238.254+194.112]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 6, raw header: [87, 83, 67, 0, 0, 0, 6], data: turnOn, raw data: [116, 117, 114, 110, 79, 110]
+[Session-3-130.89.238.254+197.88]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
+[PiServer+201.516]					New client accepted: /130.89.238.254
+[Session-3-130.89.238.254+223.597]					Starting session for /130.89.238.254
+[PiServer+224.05]					New client accepted: /130.89.238.254
+[Session-4-130.89.238.254+224.05]					Starting session for /130.89.238.254
+[Session-3-130.89.238.254+224.363]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-3-130.89.238.254+224.55]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[Session-3-130.89.238.254+224.769]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
+[Session-4-130.89.238.254+229.243]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-4-130.89.238.254+251.1]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[Session-4-130.89.238.254+251.162]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
+[Input-listener-thread+275.869]					Stopping Server.
+
+>>>[Input-listener-thread+278.013]					 ERROR:java.net.SocketException: Connection closed by remote host
+at sun.security.ssl.SSLSocketImpl.checkWrite(Unknown Source)
+at sun.security.ssl.AppOutputStream.write(Unknown Source)
+at java.io.BufferedOutputStream.flushBuffer(Unknown Source)
+at java.io.BufferedOutputStream.flush(Unknown Source)
+at connection.WallSocketSession.sendPacket(WallSocketSession.java:45)
+at connection.WallSocketSession.stopSession(WallSocketSession.java:128)
+at connection.WallSocketServer.stopServer(WallSocketServer.java:101)
+at main.MainManager.quit(MainManager.java:133)
+at main.MainManager$1.run(MainManager.java:84)
+at java.lang.Thread.run(Unknown Source)
+<<<
+
+
+>>>[Input-listener-thread+278.013]					 ERROR:java.net.SocketException: Socket is closed
+at sun.security.ssl.SSLSocketImpl.checkEOF(Unknown Source)
+at sun.security.ssl.SSLSocketImpl.checkWrite(Unknown Source)
+at sun.security.ssl.AppOutputStream.write(Unknown Source)
+at java.io.BufferedOutputStream.flushBuffer(Unknown Source)
+at java.io.BufferedOutputStream.flush(Unknown Source)
+at java.io.FilterOutputStream.close(Unknown Source)
+at connection.WallSocketSession.stopSession(WallSocketSession.java:134)
+at connection.WallSocketServer.stopServer(WallSocketServer.java:101)
+at main.MainManager.quit(MainManager.java:133)
+at main.MainManager$1.run(MainManager.java:84)
+at java.lang.Thread.run(Unknown Source)
+<<<
+
+
+>>>[Session-3-130.89.238.254+278.013]					 ERROR:Connection dead - while waiting<<<
+
+
+>>>[Session-3-130.89.238.254+278.013]					 ERROR:Connection dead - while reading header<<<
+
+
+>>>[Session-3-130.89.238.254+278.013]					 ERROR:Connection dead - while waiting<<<
+
+
+>>>[Session-3-130.89.238.254+278.013]					 ERROR:Connection dead - while reading header<<<
+
+
+>>>[Session-2-130.89.238.254+278.029]					 ERROR:Connection dead - while reading header<<<
+
+[PiServer+278.375]					Server stopped.

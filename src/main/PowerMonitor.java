@@ -89,6 +89,7 @@ public class PowerMonitor extends Thread {
 	
 	public void shutdown() {
 		timer.cancel();
+		System.out.println("Power monitor stopped");
 	}
 	
 	
