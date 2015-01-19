@@ -1,13 +1,10 @@
 package main;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
-
-import org.joda.time.IllegalInstantException;
 
 import tools.Tools;
 import connection.WallSocketServer;
@@ -19,20 +16,23 @@ public class MainManager {
 	public static final int DEF_PORT = 7331;
 	public static final int greenThreshold = 150;
 	public static final int orangeThreshold = 350;
-	
+	private static final String PATH = "files/";
+
+
 	private int port = DEF_PORT;
 	private static boolean isOn = false;
 	private static WallSocketServer sock = null;
 	private static LampController lamp = null;
 	private static PowerMonitor pm = null;
-	
-	private boolean runOnPI = System.getProperty("os.name").equals("Linux");
+
+	private boolean runOnPI = !System.getProperty("sun.arch.data.model").equals("64");
 
 	public MainManager() {
 		// set up port
 		setUpPort();
 		// start server
-		System.out.println("Starting the socket server (type \"q\" to shutdown)...");
+		System.out
+				.println("Starting the socket server (type \"q\" to shutdown)...");
 		sock = new WallSocketServer(this, port);
 		sock.start();
 		turnOn();
@@ -40,10 +40,12 @@ public class MainManager {
 			startStopListener();
 		}
 	}
-	
+
 	private void setUpPort() {
 		boolean valid = false;
-		System.out.println("Type port number (use 1025 - 65535) or \"d\" to use default (" + DEF_PORT + ")");
+		System.out
+				.println("Type port number (use 1025 - 65535) or \"d\" to use default ("
+						+ DEF_PORT + ")");
 		while (!valid) {
 			String res = Tools.waitForInput(System.in);
 			if (res.equals("d")) {
@@ -63,17 +65,18 @@ public class MainManager {
 				if (testSock != null) {
 					try {
 						testSock.close();
-					} catch (IOException e) {}
+					} catch (IOException e) {
+					}
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Only used when running on laptop.
 	 */
 	private void startStopListener() {
-		Thread thread = new Thread(new Runnable() {		
+		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (true) {
@@ -81,7 +84,7 @@ public class MainManager {
 					if (line.startsWith("q")) {
 						quit();
 					}
-				}		
+				}
 			}
 		}, "Input-listener-thread");
 		thread.setDaemon(true);
@@ -104,8 +107,7 @@ public class MainManager {
 			System.out.println("Starting a power monitor...");
 			pm = new PowerMonitor(this);
 			pm.start();
-		} else {
-			turnOff();
+			toReturn = true;
 		}
 		return String.valueOf(toReturn);
 	}
@@ -120,19 +122,38 @@ public class MainManager {
 				lamp = null;
 			}
 			isOn = false;
-		}		
+			toReturn = true;
+		}
 		return String.valueOf(toReturn);
 	}
-	
+
 	public void quit() {
 		sock.stopServer();
-		turnOff();	
+		turnOff();
 	}
 
 	public String getValues() {
-		return pm.readFromFiles();
+		String toReturn = "";
+		for (final File fileEntry : new File(PATH).listFiles()) {
+			if (!fileEntry.isDirectory()) {
+				try {
+					System.out.println(fileEntry.getName());
+					BufferedReader reader = new BufferedReader(new FileReader(
+							fileEntry));
+					String line = reader.readLine();
+					while (line != null) {
+						toReturn += line + ";";
+						line = reader.readLine();
+					}
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return toReturn;
 	}
-	
+
 	public String getColor() {
 		if (runOnPI) {
 			return lamp.getColor().toString();
@@ -140,7 +161,7 @@ public class MainManager {
 			return ColorType.NONE.toString();
 		}
 	}
-	
+
 	public void colorChanger(int value) {
 		if (value <= greenThreshold) {
 			lamp.setGreen();

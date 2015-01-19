@@ -1,5 +1,9 @@
-[main+0.0]					Starting server on: 192.168.137.1:7331
-[main+0.681]					Socket created
-[PiServer+0.681]					Starting server loop.
-[Input-listener-thread+1.403]					Stopping Server.
-[PiServer+1.686]					Server stopped.
+[main+0.0]					Starting server on: 127.0.1.1:7331
+[main+0.237]					Socket created
+[PiServer+0.238]					Starting server loop.
+[PiServer+53.959]					New client accepted: /130.89.225.63
+[Session-1-130.89.225.63+53.96]					Starting session for /130.89.225.63
+[Session-1-130.89.225.63+54.415]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-1-130.89.225.63+54.56]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 9, raw header: [87, 83, 67, 0, 0, 0, 9], data: getValues, raw data: [103, 101, 116, 86, 97, 108, 117, 101, 115]
+[Session-1-130.89.225.63+65.275]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 7, raw header: [87, 83, 67, 0, 0, 0, 7], data: turnOff, raw data: [116, 117, 114, 110, 79, 102, 102]
+[Session-1-130.89.225.63+71.704]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 6, raw header: [87, 83, 67, 0, 0, 0, 6], data: turnOn, raw data: [116, 117, 114, 110, 79, 110]
