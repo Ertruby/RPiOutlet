@@ -1,5 +1,7 @@
 package main;
 
+import gpio.ColorType;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Timer;
@@ -12,7 +14,7 @@ public class Simulator extends Thread {
 	private MainManager mm;
 	
 	private String helpString = "Items: mic(rowave), mix(er), ref(rigerator), s(haver), l(amp), tv, c(offee), "
-			+ "d(ishwasher)\nColors: r(ed), o(range), g(reen)\nOther: h(elp), q(uit)";
+			+ "d(ishwasher)\nColors: r(ed), o(range), g(reen), b(lue), n(one)\nOther: h(elp), q(uit)";
 	
 	private TimerTask task = new TimerTask() {
 		public void run() {
@@ -41,6 +43,12 @@ public class Simulator extends Thread {
 				pm.setPulse(151);
 			} else if (s.startsWith("g")) {
 				pm.setPulse(0);
+			} else if (s.startsWith("b")) {
+				pm.setPulse(-2);
+				mm.colorChanger(ColorType.BLUE);
+			} else if (s.startsWith("n")) {
+				pm.setPulse(-1);
+				mm.colorChanger(ColorType.NONE);
 			} else if (s.startsWith("h")) {
 				System.out.println(helpString);
 			} else if (s.startsWith("q")) {

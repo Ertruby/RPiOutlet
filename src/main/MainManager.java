@@ -17,8 +17,8 @@ import gpio.LampController;
 public class MainManager {
 
 	public static final int DEF_PORT = 7331;
-	public static final int greenThreshold = 150;
-	public static final int orangeThreshold = 350;
+	public static final int greenThreshold = 50;
+	public static final int orangeThreshold = 150;
 	
 	private int port = DEF_PORT;
 	private static boolean isOn = false;
@@ -141,7 +141,14 @@ public class MainManager {
 		}
 	}
 	
+	public void colorChanger(ColorType color) {
+		lamp.setColor(color);
+	}
+	
 	public void colorChanger(int value) {
+		if (value < 0) {
+			return; //test case
+		}
 		if (value <= greenThreshold) {
 			lamp.setGreen();
 		} else if (value <= orangeThreshold) {

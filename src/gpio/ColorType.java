@@ -6,7 +6,7 @@ package gpio;
  * @author rvemous
  */
 public enum ColorType {
-    NONE, GREEN, ORANGE, RED;
+    NONE, GREEN, ORANGE, RED, BLUE;
                 
     /**
      * Gets the color type belonging to this string.

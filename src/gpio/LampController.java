@@ -46,6 +46,41 @@ public class LampController extends Thread {
 		greenPin.low();
 		bluePin.low();
 	}
+	
+	public void setBlue() {
+		currColor = ColorType.BLUE;
+		redPin.low();
+		greenPin.low();
+		bluePin.high();
+	}
+	
+	public void setNone() {
+		currColor = ColorType.NONE;
+		redPin.low();
+		greenPin.low();
+		bluePin.low();
+	}
+	
+	public void setColor(ColorType color) {
+		currColor = color;
+		switch(color) {
+		case NONE:
+			setNone();
+			break;
+		case BLUE:
+			setBlue();
+			break;
+		case GREEN:
+			setGreen();
+			break;
+		case ORANGE:
+			setOrange();
+			break;
+		case RED:
+			setRed();
+			break;
+		}		
+	}
 
 	public void shutdown() {
 		currColor = ColorType.NONE;

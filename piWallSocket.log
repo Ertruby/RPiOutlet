@@ -1,5 +1,5 @@
-[main+0.0]					Starting server on: 192.168.137.1:7331
-[main+0.681]					Socket created
-[PiServer+0.681]					Starting server loop.
-[Input-listener-thread+1.403]					Stopping Server.
-[PiServer+1.686]					Server stopped.
+[main+0.0]					Starting server on: 10.87.3.122:7331
+[main+0.964]					Socket created
+[PiServer+0.964]					Starting server loop.
+[Input-listener-thread+12.093]					Stopping Server.
+[PiServer+12.99]					Server stopped.
