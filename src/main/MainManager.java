@@ -132,7 +132,7 @@ public class MainManager {
 		turnOff();
 	}
 
-	public String getValues() {
+	public byte[] getValues() {
 		String toReturn = "";
 		for (final File fileEntry : new File(PATH).listFiles()) {
 			if (!fileEntry.isDirectory()) {
@@ -151,7 +151,7 @@ public class MainManager {
 				}
 			}
 		}
-		return toReturn;
+		return toReturn.getBytes();
 	}
 
 	public String getColor() {
