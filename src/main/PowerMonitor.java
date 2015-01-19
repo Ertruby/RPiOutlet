@@ -26,7 +26,7 @@ public class PowerMonitor extends Thread {
 //	private int j = 0;
 	
 	//n * 1 sec
-	private int interval = 1*1000;
+	private int interval = 10*1000;
 	private int pulseCounter = 0;
 	private int lastValue = 0;
 	
@@ -42,10 +42,15 @@ public class PowerMonitor extends Thread {
 				LocalDate date = new LocalDate();
 				File f = new File(PATH + date.toString());
 				f.createNewFile();				
-				long currentTime = new DateTime().getMillis();
-				PrintWriter out = new PrintWriter(new BufferedWriter(
-						new FileWriter(PATH + date.toString(), true)));
-				out.println(currentTime + "," + pulseCounter);
+				
+				if (pulseCounter > 0) {
+					long currentTime = new DateTime().getMillis();
+					PrintWriter out = new PrintWriter(new BufferedWriter(
+							new FileWriter(PATH + date.toString(), true)));
+					out.println(currentTime + "," + pulseCounter);
+					out.close();
+				}
+				
 				if (simulate) {
 					mm.colorChanger(pulseCounter);				
 				} 
@@ -53,7 +58,7 @@ public class PowerMonitor extends Thread {
 //					mm.colorChanger(pulseCounter);
 //					pulseCounter = 0;
 //				}				
-				out.close();
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
