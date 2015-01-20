@@ -1,13 +1,11 @@
 package main;
 
-import gpio.ColorType;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Simulator extends Thread {
+public class Simulator /*extends Thread*/ {
 	
 	private Timer timer = new Timer();
 	private PowerMonitor pm;
@@ -45,10 +43,8 @@ public class Simulator extends Thread {
 				pm.setPulse(MainManager.greenThreshold - 1);
 			} else if (s.startsWith("b")) {
 				pm.setPulse(-2);
-				mm.colorChanger(ColorType.BLUE);
 			} else if (s.startsWith("n")) {
 				pm.setPulse(-1);
-				mm.colorChanger(ColorType.NONE);
 			} else if (s.startsWith("h")) {
 				System.out.println(helpString);
 			} else if (s.startsWith("q")) {
@@ -68,9 +64,13 @@ public class Simulator extends Thread {
 		this.mm = mm;
 	}
 	
+	public void start() {
+		timer.scheduleAtFixedRate(task, 0, 500);
+	}
+	
 	public static String userInput(String prompt) {
 		String retString = "";
-		System.err.print(prompt);
+		System.out.print(prompt);
 		try {
 			retString = stdin.readLine();
 		} catch (Exception e) {
@@ -83,8 +83,9 @@ public class Simulator extends Thread {
 		}
 		return retString;
 	}
-
-	public void run() {
-		timer.scheduleAtFixedRate(task, 0, 1000);
+	
+	public void shutDown() {
+		timer.cancel();
 	}
+
 }

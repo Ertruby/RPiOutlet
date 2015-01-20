@@ -120,12 +120,19 @@ public class WallSocketSession extends Thread {
 	public void selfShutdown() {
 		 stop = true;
 		 server.unregister(this);
+		try {
+			in.close();
+			out.close();
+			socket.close();
+		} catch (IOException e) {
+			Logger.logError(e);
+		}
 	}
 	
 	public void stopSession() {
 		stop = true;
 		try {
-			sendPacket(Packet.createCommandPacket(Command.goodBye()));
+			sendPacket(Packet.createCommandStringPacket("DEAD"));
 		} catch (IOException e) {
 			Logger.logError(e);
 		}

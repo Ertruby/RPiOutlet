@@ -101,6 +101,12 @@ public class Packet {
        return new Packet(header, commandBytes);
     }
     
+    public static Packet createCommandStringPacket(String command) {
+        byte[] commandBytes = command.getBytes();
+        PacketHeader header = new PacketHeader(PacketType.COMMAND, commandBytes.length);
+        return new Packet(header, commandBytes);
+     }
+    
     public static Packet createDataPacket(byte[] data) {
        PacketHeader header = new PacketHeader(PacketType.DATA, data.length);
        return new Packet(header, data);

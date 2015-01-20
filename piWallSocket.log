@@ -1,45 +1,79 @@
-[main+0.0]					Starting server on: 130.89.231.127:7331
-[main+0.346]					Socket created
-[PiServer+0.346]					Starting server loop.
-at sun.security.ssl.AppOutputStream.write(Unknown Source)
-at java.io.BufferedOutputStream.flushBuffer(Unknown Source)
-at java.io.BufferedOutputStream.flush(Unknown Source)
-at connection.WallSocketSession.sendPacket(WallSocketSession.java:45)
-at connection.WallSocketSession.stopSession(WallSocketSession.java:128)
-at connection.WallSocketServer.stopServer(WallSocketServer.java:101)
-at main.MainManager.quit(MainManager.java:133)
-at main.MainManager$1.run(MainManager.java:84)
-at java.lang.Thread.run(Unknown Source)
-<<<
+[main+0.0]					Starting server on: 192.168.0.105:7331
+[main+0.822]					Socket created
+[PiServer+0.822]					Starting server loop.
+[PiServer+4.465]					New client accepted: /192.168.0.101
+[Session-1-192.168.0.101+4.47]					Starting session for /192.168.0.101
+[Session-1-192.168.0.101+4.719]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-1-192.168.0.101+4.846]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[Session-1-192.168.0.101+27.615]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 7, raw header: [87, 83, 67, 0, 0, 0, 7], data: turnOff, raw data: [116, 117, 114, 110, 79, 102, 102]
+[Session-1-192.168.0.101+33.114]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 6, raw header: [87, 83, 67, 0, 0, 0, 6], data: turnOn, raw data: [116, 117, 114, 110, 79, 110]
+[Session-1-192.168.0.101+33.514]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[Session-1-192.168.0.101+35.504]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 7, raw header: [87, 83, 67, 0, 0, 0, 7], data: turnOff, raw data: [116, 117, 114, 110, 79, 102, 102]
+[Session-1-192.168.0.101+39.771]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 6, raw header: [87, 83, 67, 0, 0, 0, 6], data: turnOn, raw data: [116, 117, 114, 110, 79, 110]
+[Session-1-192.168.0.101+39.9]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+702.681]					New client accepted: /192.168.0.101
+[Session-2-192.168.0.101+702.681]					Starting session for /192.168.0.101
+[Session-2-192.168.0.101+703.874]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-2-192.168.0.101+703.997]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+1168.503]					New client accepted: /192.168.0.101
+[Session-3-192.168.0.101+1168.503]					Starting session for /192.168.0.101
+[Session-3-192.168.0.101+1169.096]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-3-192.168.0.101+1169.229]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+1327.668]					New client accepted: /192.168.0.101
+[Session-4-192.168.0.101+1327.669]					Starting session for /192.168.0.101
+[Session-4-192.168.0.101+1327.854]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-4-192.168.0.101+1327.907]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+
+>>>[Session-4-192.168.0.101+1355.842]					 ERROR:Connection dead - while waiting<<<
 
 
->>>[Input-listener-thread+278.013]					 ERROR:java.net.SocketException: Socket is closed
-at sun.security.ssl.SSLSocketImpl.checkEOF(Unknown Source)
-at sun.security.ssl.SSLSocketImpl.checkWrite(Unknown Source)
-at sun.security.ssl.AppOutputStream.write(Unknown Source)
-at java.io.BufferedOutputStream.flushBuffer(Unknown Source)
-at java.io.BufferedOutputStream.flush(Unknown Source)
-at java.io.FilterOutputStream.close(Unknown Source)
-at connection.WallSocketSession.stopSession(WallSocketSession.java:134)
-at connection.WallSocketServer.stopServer(WallSocketServer.java:101)
-at main.MainManager.quit(MainManager.java:133)
-at main.MainManager$1.run(MainManager.java:84)
-at java.lang.Thread.run(Unknown Source)
-<<<
+>>>[Session-4-192.168.0.101+1355.843]					 ERROR:Connection dead - while reading header<<<
 
-
->>>[Session-3-130.89.238.254+278.013]					 ERROR:Connection dead - while waiting<<<
-
-
->>>[Session-3-130.89.238.254+278.013]					 ERROR:Connection dead - while reading header<<<
-
-
->>>[Session-3-130.89.238.254+278.013]					 ERROR:Connection dead - while waiting<<<
-
-
->>>[Session-3-130.89.238.254+278.013]					 ERROR:Connection dead - while reading header<<<
-
-
->>>[Session-2-130.89.238.254+278.029]					 ERROR:Connection dead - while reading header<<<
-
-[PiServer+278.375]					Server stopped.
+[PiServer+1357.053]					New client accepted: /192.168.0.101
+[Session-4-192.168.0.101+1357.053]					Starting session for /192.168.0.101
+[Session-4-192.168.0.101+1357.734]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-4-192.168.0.101+1357.885]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[Session-4-192.168.0.101+1376.414]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-4-192.168.0.101+1376.564]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+1389.381]					New client accepted: /192.168.0.101
+[Session-5-192.168.0.101+1389.382]					Starting session for /192.168.0.101
+[Session-5-192.168.0.101+1389.897]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-5-192.168.0.101+1390.021]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+1473.594]					New client accepted: /192.168.0.101
+[Session-6-192.168.0.101+1473.594]					Starting session for /192.168.0.101
+[Session-6-192.168.0.101+1474.055]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-6-192.168.0.101+1474.208]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+1644.511]					New client accepted: /192.168.0.101
+[Session-7-192.168.0.101+1644.512]					Starting session for /192.168.0.101
+[Session-7-192.168.0.101+1644.975]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-7-192.168.0.101+1645.13]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+1712.041]					New client accepted: /192.168.0.101
+[Session-8-192.168.0.101+1712.041]					Starting session for /192.168.0.101
+[Session-8-192.168.0.101+1712.86]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-8-192.168.0.101+1713.031]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+1953.185]					New client accepted: /192.168.0.101
+[Session-9-192.168.0.101+1953.185]					Starting session for /192.168.0.101
+[Session-9-192.168.0.101+1954.335]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-9-192.168.0.101+1954.491]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+2068.259]					New client accepted: /192.168.0.101
+[Session-10-192.168.0.101+2068.26]					Starting session for /192.168.0.101
+[Session-10-192.168.0.101+2068.957]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-10-192.168.0.101+2069.08]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+2193.833]					New client accepted: /192.168.0.101
+[Session-11-192.168.0.101+2193.833]					Starting session for /192.168.0.101
+[Session-11-192.168.0.101+2194.405]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-11-192.168.0.101+2194.532]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+2540.188]					New client accepted: /192.168.0.101
+[Session-12-192.168.0.101+2540.189]					Starting session for /192.168.0.101
+[Session-12-192.168.0.101+2542.169]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-12-192.168.0.101+2542.325]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+2758.119]					New client accepted: /192.168.0.101
+[Session-13-192.168.0.101+2758.12]					Starting session for /192.168.0.101
+[Session-13-192.168.0.101+2758.732]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-13-192.168.0.101+2758.849]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+2779.303]					New client accepted: /192.168.0.101
+[Session-14-192.168.0.101+2779.303]					Starting session for /192.168.0.101
+[Session-14-192.168.0.101+2779.84]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 4, raw header: [87, 83, 67, 0, 0, 0, 4], data: isOn, raw data: [105, 115, 79, 110]
+[Session-14-192.168.0.101+2780.113]					Got command packet: Packet - Packet header - start bytes: [87, 83, 67], packet type: COMMAND, packet length: 8, raw header: [87, 83, 67, 0, 0, 0, 8], data: getColor, raw data: [103, 101, 116, 67, 111, 108, 111, 114]
+[PiServer+2824.868]					New client accepted: /192.168.0.101
+[Session-15-192.168.0.101+2824.868]					Starting session for /192.168.0.101

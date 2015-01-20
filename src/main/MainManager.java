@@ -20,7 +20,7 @@ public class MainManager {
 
 
 	private int port = DEF_PORT;
-	private static boolean isOn = true;
+	private static boolean isOn = false;
 	private static WallSocketServer sock = null;
 	private static LampController lamp = null;
 	private static PowerMonitor pm = null;
@@ -43,11 +43,11 @@ public class MainManager {
 	private void setUpPort() {
 		boolean valid = false;
 		System.out
-				.println("Type port number (use 1025 - 65535) or \"d\" to use default ("
+				.println("Type port number (use 1025 - 65535) or ENTER to use default ("
 						+ DEF_PORT + ")");
 		while (!valid) {
 			String res = Tools.waitForInput(System.in);
-			if (res.equals("d")) {
+			if (res.equals("")) {
 				res = DEF_PORT + "";
 			}
 			ServerSocket testSock = null;
@@ -90,13 +90,13 @@ public class MainManager {
 		thread.start();
 	}
 
-	public String isOn() {
+	public synchronized String isOn() {
 		return String.valueOf(isOn);
 	}
 
-	public String turnOn() {
+	public synchronized String turnOn() {
 		boolean toReturn = false;
-		if (pm == null) {
+		if (!isOn && pm == null) {
 			isOn = true;
 			if (runOnPI) {
 				System.out.println("Starting a lamp controller...");
@@ -111,15 +111,13 @@ public class MainManager {
 		return String.valueOf(toReturn);
 	}
 
-	public String turnOff() {
+	public synchronized String turnOff() {
 		boolean toReturn = false;
-		if (pm != null) {
+		if (isOn && pm != null) {
 			pm.shutdown();
 			pm = null;
 			if (runOnPI) {
 				lamp.shutdown();
-				lamp = null;
-				System.gc();
 			}
 			isOn = false;
 			toReturn = true;
@@ -130,15 +128,12 @@ public class MainManager {
 		return String.valueOf(toReturn);
 	}
 
-	public void quit() {
+	public synchronized void quit() {
 		sock.stopServer();
 		turnOff();
 	}
 
-	public byte[] getValues() {
-		if (!isOn) {
-			return null;
-		}
+	public synchronized byte[] getValues() {
 		String toReturn = "";
 		for (final File fileEntry : new File(PATH).listFiles()) {
 			if (!fileEntry.isDirectory()) {
@@ -160,28 +155,48 @@ public class MainManager {
 		return toReturn.getBytes();
 	}
 
-	public String getColor() {
+	public synchronized String getColor() {
 		if (isOn && runOnPI) {
 			return lamp.getColor().toString();
 		} else {
 			return ColorType.NONE.toString();
 		}
 	}
-
-	public void colorChanger(ColorType color) {
-		lamp.setColor(color);
-	}
-	
-	public void colorChanger(int value) {
-		if (value < 0) {
-			return; //test case
-		}
-		if (value <= greenThreshold) {
-			lamp.setGreen();
-		} else if (value <= orangeThreshold) {
-			lamp.setOrange();
-		} else {
-			lamp.setRed();
+	public synchronized void colorChanger(int value) {
+		if (isOn && runOnPI) {
+			if (value < 0) {
+				if (value == -1) {
+					if (!lamp.getColor().equals(ColorType.NONE)) {
+						lamp.setColor(ColorType.NONE);
+						sock.broadcastColor(ColorType.NONE);
+						
+					}
+				} else if (value == -2) {
+					if (!lamp.getColor().equals(ColorType.BLUE)) {
+						lamp.setColor(ColorType.BLUE);
+						sock.broadcastColor(ColorType.BLUE);
+					}
+				}
+				return;
+			}
+			if (value <= greenThreshold) {			
+				if (!lamp.getColor().equals(ColorType.GREEN)) {
+					lamp.setGreen();
+					sock.broadcastColor(ColorType.GREEN);
+				}
+			} else if (value <= orangeThreshold) {
+				
+				if (!lamp.getColor().equals(ColorType.ORANGE)) {
+					lamp.setOrange();
+					sock.broadcastColor(ColorType.ORANGE);
+				}
+			} else {
+				
+				if (!lamp.getColor().equals(ColorType.RED)) {
+					lamp.setRed();
+					sock.broadcastColor(ColorType.RED);
+				}
+			}
 		}
 	}
 

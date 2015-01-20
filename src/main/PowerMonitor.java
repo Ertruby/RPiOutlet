@@ -26,7 +26,7 @@ public class PowerMonitor extends Thread {
 //	private int j = 0;
 	
 	//n * 1 sec
-	private int interval = 10*1000;
+	private int interval = 1000;
 	private int pulseCounter = 0;
 	private int lastValue = 0;
 	
@@ -54,10 +54,6 @@ public class PowerMonitor extends Thread {
 				if (simulate) {
 					mm.colorChanger(pulseCounter);				
 				} 
-//				else {
-//					mm.colorChanger(pulseCounter);
-//					pulseCounter = 0;
-//				}				
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -94,6 +90,9 @@ public class PowerMonitor extends Thread {
 	
 	public void shutdown() {
 		timer.cancel();
+		if (simulate) {
+			sim.shutDown();
+		}
 		System.out.println("Power monitor stopped");
 	}
 	

@@ -1,6 +1,8 @@
 package connection;
 
 //import java.io.File;
+import gpio.ColorType;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -17,11 +19,15 @@ import java.util.List;
 
 
 
+
+
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
 import org.omg.PortableServer.THREAD_POLICY_ID;
+
+import com.jcraft.jsch.Session;
 
 import tools.Logger;
 import tools.Tools;
@@ -107,6 +113,18 @@ public class WallSocketServer extends Thread {
 		} catch (IOException e) {
 			Logger.logError("Could not close server socket: " + e);
 		}
+	}
+	
+	public void broadcastColor(ColorType color) {
+		List<WallSocketSession> deadSessions = new ArrayList<WallSocketSession>();
+		for (WallSocketSession session : activeSessions) {
+			try {
+				session.sendPacket(Packet.createCommandStringPacket(color.toString()));
+			} catch (IOException e) {
+				deadSessions.add(session);
+			}
+		}
+		activeSessions.removeAll(deadSessions);
 	}
 
 	public void unregister(WallSocketSession session) {
