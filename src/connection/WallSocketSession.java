@@ -21,6 +21,7 @@ public class WallSocketSession extends Thread {
 	private final SSLSocket socket;
 	
     private boolean stop = false;
+    private boolean stopped = true;
     
     private BufferedInputStream in;
     private BufferedOutputStream out;
@@ -49,6 +50,8 @@ public class WallSocketSession extends Thread {
 	public void run() {
 		Logger.log("Starting session for " + socket.getInetAddress());
 		byte[] headerbuff = new byte[PacketHeader.HEADER_LENGTH];
+		stopped = false;
+		mainloop:
         while (!stop) {
             do {
                 try {
@@ -56,7 +59,7 @@ public class WallSocketSession extends Thread {
                 } catch (IOException ex) {
                 	Logger.logError("Connection dead - while waiting");
                 	selfShutdown();
-                    continue;
+                    break mainloop;
                 }
                 Tools.waitForMs(50);
             } while (!stop && headerbuff[0] == -1);
@@ -65,7 +68,7 @@ public class WallSocketSession extends Thread {
             } catch (IOException ex) {
             	Logger.logError("Connection dead - while reading header");
             	selfShutdown();
-                continue;                  
+                break mainloop;                  
             }
             PacketHeader header = null;
             try {
@@ -84,11 +87,16 @@ public class WallSocketSession extends Thread {
             } catch (IOException ex) {
             	Logger.logError("Connection dead - while reading data");
                 selfShutdown();
-                continue;
+                break mainloop;
             }
             Packet packet = new Packet(header, receiverBuff);
             packetHandler(packet);
         }
+		stopped = true;
+	}
+	
+	public String getHostAddress() {
+		return socket.getInetAddress().getHostAddress();
 	}
 	
 	private void packetHandler(Packet packet) {
@@ -108,7 +116,7 @@ public class WallSocketSession extends Thread {
 			} else if (Command.isGetValuesCommand(packet.getData())) {
 				sendPacket(Packet.createDataPacket(mm.getValues()));
 			} else if (Command.isGetColorCommand(packet.getData())) {
-				sendPacket(Packet.createResponse(mm.getColor()));
+				sendPacket(Packet.createResponse(mm.getColor().toString()));
 			} else {
 				return;
 			}		
@@ -118,24 +126,31 @@ public class WallSocketSession extends Thread {
 	}
 	
 	public void selfShutdown() {
-		 stop = true;
-		 server.unregister(this);
+		stop = true;
+		server.unregister(this);
 		try {
 			in.close();
 			out.close();
 			socket.close();
 		} catch (IOException e) {
-			Logger.logError(e);
+			// socket already closed
 		}
 	}
 	
-	public void stopSession() {
+	public void stopSession(boolean sendDeadPacket) {
 		stop = true;
-		try {
-			sendPacket(Packet.createCommandStringPacket("DEAD"));
-		} catch (IOException e) {
-			Logger.logError(e);
+		if (sendDeadPacket) {
+			try {
+				sendPacket(Packet.createCommandStringPacket("DEAD"));
+			} catch (IOException e) {
+				Logger.logError(e);
+			}
 		}
+		/*while (!stopped) {
+			 try {
+				Thread.sleep(50);
+			 } catch (InterruptedException e) {}
+		}*/
 		try {
 			in.close();
 			out.close();

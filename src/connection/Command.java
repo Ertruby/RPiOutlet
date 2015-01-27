@@ -1,10 +1,11 @@
 package connection;
 
+import gpio.ColorType;
 import connection.exception.InvalidPacketException;
 
 
 /**
- * A command with possible arguments
+ * A command with possible arguments.
  *
  * @author rvemous
  */
@@ -77,15 +78,6 @@ public class Command {
         }
         return sb.toString(); 
     }
-
-    /**
-     * Gets the power usage values.
-     * 
-     * @return the command
-     */    
-    public static Command goodBye() {
-        return new Command("goodBye", "");
-    }
     
     public static boolean isIsOnCommand(byte[] data) {
     	return new String(data).equalsIgnoreCase("isOn");
@@ -105,6 +97,24 @@ public class Command {
     
     public static boolean isGetColorCommand(byte[] data) {
     	return new String(data).equalsIgnoreCase("getColor");
+    }
+    
+    /**
+     * Turns on/off the wall socket.
+     * 
+     * @return the command
+     */      
+    public static Command setState(boolean turnOn) {
+        return new Command("turn" + (turnOn ? "On" : "Off"), "");
+    }
+    
+    /**
+     * Gets the power usage values.
+     * 
+     * @return the command
+     */    
+    public static Command setColor(ColorType type) {
+        return new Command("setColor", type.toString());
     }
     
 }

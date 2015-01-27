@@ -1,7 +1,7 @@
 package gpio;
 
 /**
- * The type of packet.
+ * The type of color.
  * 
  * @author rvemous
  */
