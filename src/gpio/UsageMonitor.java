@@ -18,6 +18,7 @@ public class UsageMonitor {
 	
 	private static final double ORANGE_THRESHOLD_FACTOR = 1.10; // 10% more than reference
 	private static final double RED_THRESHOLD_FACTOR = 1.25; // 25% more than reference
+	private static final double SILENT_THRESHOLD_FACTOR = 0.10; // 90% less than reference (device disconnected maybe)
 	
 	private MainManager mm;
 	
@@ -31,6 +32,7 @@ public class UsageMonitor {
 		usageHistory = new LinkedBlockingQueue<UsageElement>();
 		totalUsageTime = 0;
 		totalUsagePower = 0;
+		updateColor();
 	}
 	
 	public void addPowerUsage(long timeInterval, double powerUsage) {
@@ -54,6 +56,10 @@ public class UsageMonitor {
 	}
 	
 	private void updateColor() {
+		if (usageHistory.isEmpty()) {
+			mm.setMonitorColor(ColorType.GREEN_FLASHING);
+			return;
+		}
 		double totalPower = 0; // in watt/hour
 		Iterator<UsageElement> iterator = usageHistory.iterator();
 		while (iterator.hasNext()) {
@@ -61,12 +67,15 @@ public class UsageMonitor {
 		}
 		double average = totalPower / usageHistory.size();
 		double usageToRefUsageFactor = average / referenceElement.getPowerUsage();
-		if (average >= RED_THRESHOLD_FACTOR * referenceElement.getPowerUsage()) {
+		if (usageToRefUsageFactor >= RED_THRESHOLD_FACTOR) {
 			// way to much usage
 			mm.setMonitorColor(ColorType.RED);
-		} else if (average >= ORANGE_THRESHOLD_FACTOR * referenceElement.getPowerUsage())  {
-			// little to much usage
+		} else if (usageToRefUsageFactor >= ORANGE_THRESHOLD_FACTOR)  {
+			// little too much usage
 			mm.setMonitorColor(ColorType.ORANGE);
+		} else if (usageToRefUsageFactor <= SILENT_THRESHOLD_FACTOR) {
+			// very little usage (device probably disconnected, but the charger not)
+			mm.setMonitorColor(ColorType.RED_FLASHING);			
 		} else {
 			// average usage (or less) 
 			mm.setMonitorColor(ColorType.GREEN);

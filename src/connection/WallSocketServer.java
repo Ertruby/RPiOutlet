@@ -106,8 +106,9 @@ public class WallSocketServer extends Thread {
 
 	public void stopServer() {
 		Logger.log("Stopping WSc server...");
-		for (WallSocketSession session : activeSessions) {
-			session.stopSession(true);
+		Iterator<WallSocketSession> sessions = activeSessions.iterator();
+		while (sessions.hasNext()) {			
+			sessions.next().stopSession(true);
 		}
 		stop = true;
 		while (!stopped) {

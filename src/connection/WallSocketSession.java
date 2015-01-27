@@ -1,6 +1,8 @@
 
 package connection;
 
+import gpio.ColorType;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -116,7 +118,7 @@ public class WallSocketSession extends Thread {
 			} else if (Command.isGetValuesCommand(packet.getData())) {
 				sendPacket(Packet.createDataPacket(mm.getValues()));
 			} else if (Command.isGetColorCommand(packet.getData())) {
-				sendPacket(Packet.createResponse(mm.getColor().toString()));
+				sendPacket(Packet.createResponse(mm.getColor(false).toString()));
 			} else {
 				return;
 			}		

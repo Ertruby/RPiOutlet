@@ -6,7 +6,7 @@ package gpio;
  * @author rvemous
  */
 public enum ColorType {
-    NONE, GREEN, ORANGE, RED, BLUE;
+    NONE, GREEN, ORANGE, RED, BLUE, RED_FLASHING, GREEN_FLASHING;
                 
     /**
      * Gets the color type belonging to this string.
@@ -30,5 +30,9 @@ public enum ColorType {
      */
     public String toString() {
         return this.name();
+    }
+    
+    public ColorType getNonFlashing() {
+    	return getType(this.toString().split("_")[0]);
     }
 }

@@ -3,6 +3,8 @@ package gpio;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import tools.Tools;
+
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
@@ -25,6 +27,11 @@ public class LEDController {
 	private GpioPinDigitalOutput pinRed;
 	private GpioPinDigitalOutput pinGreen;
 	private GpioPinDigitalOutput pinBlue;
+	
+	private boolean flash = false;
+	
+	private Thread greenThread;
+	private Thread redThread;
 	
 	public static LEDController getInstance() {
 		if (INSTANCE != null) {
@@ -73,6 +80,62 @@ public class LEDController {
 		pinBlue.low();
 	}
 	
+	public void setRedFlashing() {
+		currColor = ColorType.RED_FLASHING;
+		flash = true;
+		redThread = new Thread(new Runnable() {		
+			@Override
+			public void run() {
+				while (flash) {
+					pinRed.high();
+					pinGreen.low();
+					pinBlue.low();
+					Tools.waitForMs(500);
+					if (!flash) {
+						break;
+					}
+					pinRed.low();
+					pinGreen.low();
+					pinBlue.low();
+					Tools.waitForMs(500);
+					if (!flash) {
+						break;
+					}
+				}				
+			}
+		});
+		redThread.setDaemon(true);
+		redThread.start();
+	}
+	
+	public void setGreenFlashing() {
+		currColor = ColorType.GREEN_FLASHING;
+		flash = true;
+		greenThread = new Thread(new Runnable() {		
+			@Override
+			public void run() {
+				while (flash) {
+					pinRed.low();
+					pinGreen.high();
+					pinBlue.low();
+					Tools.waitForMs(1000);
+					if (!flash) {
+						break;
+					}
+					pinRed.low();
+					pinGreen.low();
+					pinBlue.low();
+					Tools.waitForMs(1000);
+					if (!flash) {
+						break;
+					}
+				}				
+			}
+		});
+		greenThread.setDaemon(true);
+		greenThread.start();
+	}
+	
 	public void setBlue() {
 		currColor = ColorType.BLUE;
 		pinRed.low();
@@ -87,8 +150,32 @@ public class LEDController {
 		pinBlue.low();
 	}
 	
+	@SuppressWarnings("incomplete-switch")
 	public void setColor(ColorType color) {
-		currColor = color;
+		if (color.equals(currColor)) {
+			return;
+		}
+		if (color.equals(ColorType.RED_FLASHING)) {
+			if (flash) {
+				flash = false;
+				greenThread.interrupt();
+				Tools.waitForMs(50);
+			}
+			flash = true;
+			setRedFlashing();
+			return;
+		}
+		if (color.equals(ColorType.GREEN_FLASHING)) {
+			if (flash) {
+				flash = false;
+				redThread.interrupt();
+				Tools.waitForMs(50);
+			}
+			flash = true;
+			setGreenFlashing();
+			return;
+		}
+		flash = false;
 		switch(color) {
 		case NONE:
 			setNone();
@@ -104,7 +191,7 @@ public class LEDController {
 			break;
 		case RED:
 			setRed();
-			break;
-		}		
+			break;	
+		}
 	}
 }

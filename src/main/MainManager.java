@@ -21,7 +21,7 @@ public class MainManager {
 	
 	private String helpString = ">> Supported commands:\n  Program:\tq (quit program), h (display this help)\n"
 			+ "  Socket:\tis on (check state), on (turn on), off (turn off), man (set manual color), auto (set automatic color)\n"
-			+ "  LED color:\tis color (check color), r (set color red), g (set color green), b (set color blue), o (set color orange), n (set color none), reset color (reset auto color), reset hist (resets all usage history)";
+			+ "  LED color:\tis color (check color), r (set color red), rf (set color red flashing), g (set color green), gf (set color green flashing), b (set color blue), o (set color orange), n (set color none), reset color (reset auto color), reset hist (resets all usage history)";
 
 	private int port = DEF_PORT;
 	private boolean isOn = false;
@@ -39,25 +39,27 @@ public class MainManager {
 			System.getProperty("os.name").equals("Linux") && 
 			!System.getProperty("sun.arch.data.model").equals("64");
 
-	public MainManager() {
+	public MainManager(boolean selectPortArg) {
 		Logger.log("WSc program started.");
 		currMonitorColor = ColorType.BLUE;
-		currUserColor = ColorType.GREEN;
+		currUserColor = ColorType.NONE;
 		manual = !RUN_ON_PI;
 		// set up port
-		setUpPort();
+		if (selectPortArg || !RUN_ON_PI) {
+			setUpPort();
+		}
 		// start switch controller
 		switchController = new SwitchController("C", 149); //change letter and code if necessary.
 		// start led controller if on RPi
 		if (RUN_ON_PI) {
 			led = LEDController.getInstance();
 		}
-		// create usage monitor (Link between usage reader and led)
-		usageMonitor = new UsageMonitor(this);
 		// start server
 		Logger.log("Starting the socket server...");
 		sock = new WallSocketServer(this, port);
 		sock.start();
+		// create usage monitor (Link between usage reader and led)
+		usageMonitor = new UsageMonitor(this);
 		// turn on socket (default)
 		turnOn();
 		// starts admin controller
@@ -108,10 +110,10 @@ public class MainManager {
 				while (!stop) {
 					System.out.print("<");
 					String line = Tools.waitForInput(System.in);
-					if (line.equals("q")) {
+					if (line.equals("q") || line.equals("quit")) {
 						quit();
 						stop = true;
-					} else if (line.equals("h")) {
+					} else if (line.equals("h") || line.equals("help")) {
 						System.out.println(">> Help\n" + helpString);
 					} else if (line.equals("reset color")) {
 				    	// resets the usage monitor history (and hereby its color)
@@ -144,7 +146,7 @@ public class MainManager {
 					} else if (line.equals("man")) {
 						// set manual and use user color
 						if (manual) {
-							return;
+							continue;
 						}
 						manual = true;
 						updateLEDColor();
@@ -154,32 +156,37 @@ public class MainManager {
 							System.out.println(">> Auto mode unavailable: Not running on a RPi!");
 						} else {
 							if (!manual) {
-								return;
+								continue;
 							}
 							manual = false;
 							updateLEDColor();
 						}
 					} else if (line.equals("is color")) {
-						System.out.println(">> WSc LED color is: " + getColor());
-					} else if (line.equals("r")) {
+						System.out.println(">> WSc LED color is: " + getColor(true));
+					} else if (line.equals("r") || line.equals("red")) {
 						// set user color red
 						setUserColor(ColorType.RED);
-					} else if (line.equals("g")) {
+					} else if (line.equals("rf") || line.equals("red flashing")) {
+						// set user color red flashing
+						setUserColor(ColorType.RED_FLASHING);
+					} else if (line.equals("g") || line.equals("green")) {
 						// set user color green
 						setUserColor(ColorType.GREEN);
-					} else if (line.equals("b")) {
+					} else if (line.equals("gf") || line.equals("green flashing")) {
+						// set user color green flashing
+						setUserColor(ColorType.GREEN_FLASHING);
+					} else if (line.equals("b") || line.equals("blue")) {
 						// set user color blue
 						setUserColor(ColorType.BLUE);
-					} else if (line.equals("o")) {
+					} else if (line.equals("o") || line.equals("orange")) {
 						// set user color orange
 						setUserColor(ColorType.ORANGE);
-					} else if (line.equals("n")) {
+					} else if (line.equals("n") || line.equals("none")) {
 						// set user color none
 						setUserColor(ColorType.NONE);
 					} else {
 						System.out.println(">> Unknown command.\n" + helpString);
-					}
-					
+					}	
 				}
 			}
 		}, "Admin-controller-thread");
@@ -254,12 +261,12 @@ public class MainManager {
 		return toReturn.getBytes();
 	}
 
-	public synchronized ColorType getColor() {
+	public synchronized ColorType getColor(boolean mayFlash) {
 		if (isOn) {
 			if (manual) {
-				return currUserColor;
+				return mayFlash ? currUserColor : currUserColor.getNonFlashing();
 			} else {
-				return currMonitorColor;
+				return mayFlash ? currMonitorColor : currMonitorColor.getNonFlashing();
 			}
 		} else {
 			return ColorType.NONE;
@@ -305,10 +312,9 @@ public class MainManager {
 			led.setColor(usedColor);
 		}
 		sock.broadcastColor(usedColor);
-
 	}
 	
 	public static void main(String args[]) {
-		new MainManager();
+		new MainManager(args.length > 0);
 	}
 }
