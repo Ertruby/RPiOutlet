@@ -72,11 +72,12 @@ public class PowerReader extends Thread {
 						long pulseTime = System.currentTimeMillis();
 						System.out.println("Pulse: " + pulseTime);
 						if (lastPulseTime > 0) {
-							System.out.println("Last pulse: " + lastPulseTime);
+							//System.out.println("Last pulse: " + lastPulseTime);
 							double currUsage = calcUsage(pulseTime - lastPulseTime);
 							System.out.println("Usage: " + currUsage + " watt");
-							writeUsage(currUsage);
+							writeUsage(pulseTime, currUsage);
 							monitor.addPowerUsage(pulseTime - lastPulseTime, currUsage);
+							mm.sendPowerValue(pulseTime, currUsage);
 						}
 						lastPulseTime = pulseTime;
 					}
@@ -93,12 +94,21 @@ public class PowerReader extends Thread {
 			}
 			loopCounter++;
 		}	
-		writeUsage(0);
+		final long time = DateTime.now().getMillis();
+		writeUsage(time, 0);
+		Thread sender = new Thread(new Runnable() {		
+			@Override
+			public void run() {
+				mm.sendPowerValue(time, 0);			
+			}
+		});
+		sender.setDaemon(true);
+		sender.start();
 		Logger.log("Power reader stopped sucessfully.");
 		stopped = true;
 	}
 	
-	private void writeUsage(double currUsage) {	
+	private void writeUsage(long time, double currUsage) {	
 		LocalDate date = new LocalDate();
 		File f = new File(PATH + date.toString());
 		if (!f.exists() || !lastDate.equals(date)) {
@@ -113,7 +123,7 @@ public class PowerReader extends Thread {
 		try {
 			out = new PrintWriter(
 					new BufferedWriter(new FileWriter(f , true)));
-			out.println(new DateTime().getMillis() + "," + currUsage);
+			out.println(time + "," + currUsage);
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();

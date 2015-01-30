@@ -79,24 +79,24 @@ public class Command {
         return sb.toString(); 
     }
     
-    public static boolean isIsOnCommand(byte[] data) {
-    	return new String(data).equalsIgnoreCase("isOn");
+    public static boolean isIsOnCommand(Command comm) {
+    	return comm.getCommand().equalsIgnoreCase("isOn");
     }
     
-    public static boolean isTurnOnCommand(byte[] data) {
-    	return new String(data).equalsIgnoreCase("turnOn");
+    public static boolean isTurnOnCommand(Command comm) {
+    	return comm.getCommand().equalsIgnoreCase("turnOn");
     }
     
-    public static boolean isTurnOffCommand(byte[] data) {
-    	return new String(data).equalsIgnoreCase("turnOff");
+    public static boolean isTurnOffCommand(Command comm) {
+    	return comm.getCommand().equalsIgnoreCase("turnOff");
     }
     
-    public static boolean isGetValuesCommand(byte[] data) {
-    	return new String(data).equalsIgnoreCase("getValues");
+    public static boolean isGetValuesCommand(Command comm) {
+    	return comm.getCommand().equalsIgnoreCase("getValues");
     }
     
-    public static boolean isGetColorCommand(byte[] data) {
-    	return new String(data).equalsIgnoreCase("getColor");
+    public static boolean isGetColorCommand(Command comm) {
+    	return comm.getCommand().equalsIgnoreCase("getColor");
     }
     
     /**
@@ -109,12 +109,22 @@ public class Command {
     }
     
     /**
-     * Gets the power usage values.
+     * Sets the color values.
      * 
      * @return the command
      */    
     public static Command setColor(ColorType type) {
         return new Command("setColor", type.toString());
     }
+    
+    /**
+     * Sets the power usage value.
+     * 
+     * @return the command
+     */    
+    public static Command addValue(long time, double value) {
+        return new Command("addValue", new String[]{time+"", value+""});
+    }
+       
     
 }

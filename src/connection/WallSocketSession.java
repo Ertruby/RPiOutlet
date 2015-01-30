@@ -1,20 +1,17 @@
 
 package connection;
 
-import gpio.ColorType;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import javax.net.ssl.SSLSocket;
 
-import connection.exception.InvalidPacketException;
+import main.MainManager;
 import tools.Logger;
 import tools.Tools;
-import main.MainManager;
+import connection.exception.InvalidPacketException;
 
 public class WallSocketSession extends Thread {
 	
@@ -43,7 +40,11 @@ public class WallSocketSession extends Thread {
      * @throws IOException when connection problems occur.
      */
     public void sendPacket(Packet packet) throws IOException {
-    	System.out.println("Send packet: " + packet.toString());
+    	if (!Packet.isDataPacket(packet)) {
+    		System.out.println("Sending packet: " + packet.toString());
+    	} else {
+    		System.out.println("Sending data packet: " + packet.getHeader().toString());
+    	}
         out.write(packet.toSendablePacket());
         out.flush();
     }
@@ -108,21 +109,28 @@ public class WallSocketSession extends Thread {
 						+ " packet: " + packet.toString());
 				return;
 			}
-			Logger.log("Got command packet: " + packet.toString());	
-			if (Command.isIsOnCommand(packet.getData())) {
+			Command command = null;
+			try {
+				command = new Command(new String(packet.getData()));
+			} catch (InvalidPacketException e) {
+				Logger.logError(e);
+			}
+			Logger.log("Got command packet: " + command.toString());	
+			if (Command.isIsOnCommand(command)) {
 				sendPacket(Packet.createResponse(mm.isOn()));
-			} else if (Command.isTurnOnCommand(packet.getData())) {
+			} else if (Command.isTurnOnCommand(command)) {
 				sendPacket(Packet.createResponse(mm.turnOn()));
-			} else if (Command.isTurnOffCommand(packet.getData())) {
+			} else if (Command.isTurnOffCommand(command)) {
 				sendPacket(Packet.createResponse(mm.turnOff()));
-			} else if (Command.isGetValuesCommand(packet.getData())) {
-				sendPacket(Packet.createDataPacket(mm.getValues()));
-			} else if (Command.isGetColorCommand(packet.getData())) {
+			} else if (Command.isGetValuesCommand(command)) {
+				sendPacket(Packet.createDataPacket(mm.getValues(
+						Long.parseLong(command.getArguments()[0]))));
+			} else if (Command.isGetColorCommand(command)) {
 				sendPacket(Packet.createResponse(mm.getColor(false).toString()));
 			} else {
 				return;
 			}		
-		} catch(IOException e) {
+		} catch(Exception e) {
 			Logger.logError(e);
 		}
 	}

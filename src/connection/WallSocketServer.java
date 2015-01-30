@@ -8,9 +8,9 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +21,6 @@ import javax.net.ssl.SSLSocket;
 
 import main.MainManager;
 import tools.Logger;
-import tools.Tools;
 
 //import android.util.Log;
 
@@ -104,11 +103,13 @@ public class WallSocketServer extends Thread {
 		Logger.log("WSc server stopped successfully.");
 	}
 
-	public void stopServer() {
+	public synchronized void stopServer() {
 		Logger.log("Stopping WSc server...");
 		Iterator<WallSocketSession> sessions = activeSessions.iterator();
-		while (sessions.hasNext()) {			
-			sessions.next().stopSession(true);
+		while (sessions.hasNext()) {		
+			try {
+				sessions.next().stopSession(true);
+			} catch (ConcurrentModificationException e) {}
 		}
 		stop = true;
 		while (!stopped) {
@@ -140,6 +141,18 @@ public class WallSocketServer extends Thread {
 		for (WallSocketSession session : activeSessions) {
 			try {
 				session.sendPacket(Packet.createCommandPacket(Command.setState(turnedOn)));
+			} catch (IOException e) {
+				deadSessions.add(session);
+			}
+		}
+		activeSessions.removeAll(deadSessions);		
+	}
+	
+	public void broadcastPowerValue(long time, double value) {
+		List<WallSocketSession> deadSessions = new ArrayList<WallSocketSession>();
+		for (WallSocketSession session : activeSessions) {
+			try {
+				session.sendPacket(Packet.createCommandPacket(Command.addValue(time, value)));
 			} catch (IOException e) {
 				deadSessions.add(session);
 			}

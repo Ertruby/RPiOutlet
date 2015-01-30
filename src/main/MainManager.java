@@ -1,18 +1,21 @@
 package main;
 
+import gpio.ColorType;
+import gpio.LEDController;
+import gpio.SwitchController;
+import gpio.UsageMonitor;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import org.joda.time.DateTime;
+
 import tools.Logger;
 import tools.Tools;
 import connection.WallSocketServer;
-import gpio.ColorType;
-import gpio.LEDController;
-import gpio.SwitchController;
-import gpio.UsageMonitor;
 
 public class MainManager {
 
@@ -238,27 +241,48 @@ public class MainManager {
 		turnOff();
 		Logger.log("WSc shutdown successful.");
 	}
+	
+	public synchronized void sendPowerValue(long time, double value) {	
+		sock.broadcastPowerValue(time, value);
+	}
 
-	public synchronized byte[] getValues() {
+	/**
+	 * Gets usage data from the date specified.<br>
+	 * Will return all data when formDate is 0 and will return an empty
+	 * byte array when no data is available.
+	 * 
+	 * @param fromDate the date from which to send data
+	 * @return an array of data
+	 */
+	public synchronized byte[] getValues(long fromDate) {	
 		String toReturn = "";
-		for (final File fileEntry : new File(PATH).listFiles()) {
+		for (File fileEntry : new File(PATH).listFiles()) {
+			// check whether it is a file
 			if (!fileEntry.isDirectory()) {
-				try {
-					System.out.println(fileEntry.getName());
-					BufferedReader reader = new BufferedReader(new FileReader(
-							fileEntry));
-					String line = reader.readLine();
-					while (line != null) {
-						toReturn += line + ";";
-						line = reader.readLine();
+				DateTime fileDate = new DateTime(fileEntry.getName());
+				// check whether file date is not older than requested
+				if (!fileDate.isBefore(fromDate)) {
+					try {
+						BufferedReader reader = new BufferedReader(new FileReader(fileEntry));
+						String line;
+						while ((line = reader.readLine()) != null) {
+							// check whether sample date is not older than requested
+							long sampleDate = Long.parseLong(line.split(",")[0]);
+							if (fromDate <= sampleDate) {
+								toReturn += line + ";";
+							}
+						}
+						reader.close();
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				}		
 			}
 		}
-		return toReturn.getBytes();
+		if (toReturn.equals("")) {
+			return new byte[0];
+		}
+		return toReturn.substring(0, toReturn.length() - 2).getBytes();
 	}
 
 	public synchronized ColorType getColor(boolean mayFlash) {
@@ -311,7 +335,7 @@ public class MainManager {
 			}
 			led.setColor(usedColor);
 		}
-		sock.broadcastColor(usedColor);
+		sock.broadcastColor(usedColor.getNonFlashing());
 	}
 	
 	public static void main(String args[]) {

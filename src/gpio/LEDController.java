@@ -1,8 +1,5 @@
 package gpio;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-
 import tools.Tools;
 
 import com.pi4j.io.gpio.GpioController;
