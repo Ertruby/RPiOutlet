@@ -1,1 +1,39 @@
 [main+0.0]					WSc program started.
+[main+1.368]					Starting the socket server...
+[main+1.857]					Starting server on: [/130.89.239.3] : 7331
+[PiServer+2.641]					WSc server started successfully.
+[main+2.645]					Turned socket on successfully.
+[PiServer+256.31]					New client accepted: /130.89.234.9
+[Session-1-130.89.234.9+256.312]					Starting session for /130.89.234.9
+[Session-1-130.89.234.9+257.492]					Got command packet: isOn
+[Session-1-130.89.234.9+257.65]					Got command packet: getColor
+[Session-1-130.89.234.9+257.798]					Got command packet: getValues 0
+[PiServer+316.317]					New client accepted: /130.89.234.9
+[Session-1-130.89.234.9+316.318]					Starting session for /130.89.234.9
+
+>>>[Session-1-130.89.234.9+316.327]					 ERROR:Connection dead - while reading header<<<
+
+[Session-1-130.89.234.9+318.257]					Got command packet: isOn
+[Session-1-130.89.234.9+318.632]					Got command packet: getColor
+[Session-1-130.89.234.9+318.903]					Got command packet: getValues 0
+[Session-1-130.89.234.9+435.962]					Got command packet: turnOff
+[Session-1-130.89.234.9+435.962]					Turned socket off successfully.
+[PiServer+488.582]					New client accepted: /130.89.234.9
+
+>>>[Session-1-130.89.234.9+488.583]					 ERROR:Connection dead - while waiting<<<
+
+[Session-1-130.89.234.9+488.584]					Starting session for /130.89.234.9
+[Session-1-130.89.234.9+489.704]					Got command packet: isOn
+[Session-1-130.89.234.9+489.855]					Got command packet: getColor
+[Session-1-130.89.234.9+490.011]					Got command packet: getValues 0
+[PiServer+877.184]					New client accepted: /130.89.234.9
+
+>>>[Session-1-130.89.234.9+877.185]					 ERROR:Connection dead - while waiting<<<
+
+[Session-1-130.89.234.9+877.185]					Starting session for /130.89.234.9
+[Session-1-130.89.234.9+878.499]					Got command packet: isOn
+[Session-1-130.89.234.9+878.898]					Got command packet: getColor
+[Session-1-130.89.234.9+879.223]					Got command packet: getValues 0
+
+>>>[Session-1-130.89.234.9+2901.785]					 ERROR:Connection dead - while waiting<<<
+

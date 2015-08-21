@@ -126,38 +126,50 @@ public class WallSocketServer extends Thread {
 	
 	public void broadcastColor(ColorType color) {
 		List<WallSocketSession> deadSessions = new ArrayList<WallSocketSession>();
-		for (WallSocketSession session : activeSessions) {
-			try {
-				session.sendPacket(Packet.createCommandPacket(Command.setColor(color)));
-			} catch (IOException e) {
-				deadSessions.add(session);
+		try {
+			for (WallSocketSession session : activeSessions) {
+				try {
+					session.sendPacket(Packet.createCommandPacket(Command.setColor(color)));
+				} catch (IOException e) {
+					deadSessions.add(session);
+				}
 			}
+			activeSessions.removeAll(deadSessions);
+		} catch (ConcurrentModificationException e) {
+			// hoi
 		}
-		activeSessions.removeAll(deadSessions);
 	}
 	
 	public void broadcastState(boolean turnedOn) {
 		List<WallSocketSession> deadSessions = new ArrayList<WallSocketSession>();
-		for (WallSocketSession session : activeSessions) {
-			try {
-				session.sendPacket(Packet.createCommandPacket(Command.setState(turnedOn)));
-			} catch (IOException e) {
-				deadSessions.add(session);
+		try {
+			for (WallSocketSession session : activeSessions) {
+				try {
+					session.sendPacket(Packet.createCommandPacket(Command.setState(turnedOn)));
+				} catch (IOException e) {
+					deadSessions.add(session);
+				}
 			}
+			activeSessions.removeAll(deadSessions);		
+		} catch (ConcurrentModificationException e) {
+			// hoi
 		}
-		activeSessions.removeAll(deadSessions);		
 	}
 	
 	public void broadcastPowerValue(long time, double value) {
 		List<WallSocketSession> deadSessions = new ArrayList<WallSocketSession>();
-		for (WallSocketSession session : activeSessions) {
-			try {
-				session.sendPacket(Packet.createCommandPacket(Command.addValue(time, value)));
-			} catch (IOException e) {
-				deadSessions.add(session);
+		try {
+			for (WallSocketSession session : activeSessions) {
+				try {
+					session.sendPacket(Packet.createCommandPacket(Command.addValue(time, value)));
+				} catch (IOException e) {
+					deadSessions.add(session);
+				}
 			}
+			activeSessions.removeAll(deadSessions);	
+		} catch (ConcurrentModificationException e) {
+			// hoi
 		}
-		activeSessions.removeAll(deadSessions);		
 	}
 	
 	private List<InetAddress> getCurrIPs(boolean onlyIPv4) throws SocketException {

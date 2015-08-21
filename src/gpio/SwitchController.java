@@ -21,6 +21,14 @@ public class SwitchController {
 		this.codeNR = codeNR;
 	}
 	
+	public void setCodeNR(int codeNR) {
+		this.codeNR = codeNR;
+	}
+	
+	public void setCodeLetter(String codeLetter) {
+		this.codeLetter = codeLetter;
+	}
+	
 	public boolean turnOn() {
 		try {
 			new ProcessBuilder(COMMAND, codeNR+"", codeLetter, "on").start();
@@ -37,6 +45,11 @@ public class SwitchController {
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return codeLetter + " - " + codeNR;
 	}
 	
 }

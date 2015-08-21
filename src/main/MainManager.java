@@ -23,7 +23,7 @@ public class MainManager {
 	private static final String PATH = "files/";
 	
 	private String helpString = ">> Supported commands:\n  Program:\tq (quit program), h (display this help)\n"
-			+ "  Socket:\tis on (check state), on (turn on), off (turn off), man (set manual color), auto (set automatic color)\n"
+			+ "  Socket:\tis on (check state), on (turn on), off (turn off), man (set manual color), auto (set automatic color), get dip (get the dip code setting), set dip (set dip code setting)\n"
 			+ "  LED color:\tis color (check color), r (set color red), rf (set color red flashing), g (set color green), gf (set color green flashing), b (set color blue), o (set color orange), n (set color none), reset color (reset auto color), reset hist (resets all usage history)";
 
 	private int port = DEF_PORT;
@@ -144,6 +144,13 @@ public class MainManager {
 						if (turnOn().equals("true")) {
 							sock.broadcastState(true);
 						}
+					} else if (line.equals("ofo")) {
+						if (turnOff().equals("true")) {
+							sock.broadcastState(false);
+						}
+						if (turnOn().equals("true")) {
+							sock.broadcastState(true);
+						}
 					} else if (line.equals("is man") || line.startsWith("is auto")) {
 						System.out.println(">> WSc LED controller is: " + (manual ? "manual" : "automatic"));
 					} else if (line.equals("man")) {
@@ -164,6 +171,35 @@ public class MainManager {
 							manual = false;
 							updateLEDColor();
 						}
+					} else if (line.equals("get dip")) {
+						System.out.println(">> The current dip config is: " + switchController.toString());
+					} else if (line.startsWith("set dip")) {
+						if (line.length() < 8) {
+							System.out.println(">> Changing dip failed: invalid arguments");
+							continue;	
+						}
+						line = line.substring(8);
+						String[] args = line.split(" ");
+						if (args.length != 2 || args[0].length() == 0 || args[1].length() == 0) {
+							System.out.println(">> Changing dip failed: invalid arguments");
+							continue;	
+						}
+						if (!Character.isUpperCase(args[0].charAt(0)) || !Character.isLetter(args[0].charAt(0))) {
+							System.out.println(">> Changing dip failed: code letter \"" + args[1] + "\" is invalid (try A-Z)");
+							continue;							
+						}
+						switchController.setCodeLetter(args[0]);
+						try {
+							int code = Integer.parseInt(args[1]);
+							if (code < 0 || code > 1023) {
+								System.out.println(">> Changing dip failed: code number \"" + args[1] + "\" is not within range (try 0-1023)!");
+								continue;
+							}
+							switchController.setCodeNR(code);
+							System.out.println(">> The new dip config is: " + switchController.toString());
+						} catch (NumberFormatException e) {
+							System.out.println(">> Changing dip failed: \"" + args[1] + "\" is not a valid code number!");	
+						}	
 					} else if (line.equals("is color")) {
 						System.out.println(">> WSc LED color is: " + getColor(true));
 					} else if (line.equals("r") || line.equals("red")) {
